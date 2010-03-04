@@ -1,0 +1,9 @@
+body {
+  text-align: left
+}
+
+#console textarea, #output textarea {
+  width: 70%;
+  height: 400px;
+  font-family: monospace
+}
