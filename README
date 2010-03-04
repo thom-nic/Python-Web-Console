@@ -1,2 +1,11 @@
 Like TryPython, except with the ability to publish and share scripts.
-Inspired by the Groovy Web Console, which also runs on AppEngine.
+Inspired by the Groovy Web Console, which also runs on AppEngine.  Ironically 
+enough, the application itself is written in Java and utilizes Jython, as 
+CPython cannot be safely sandboxed.
+
+Instructions:
+
+ mvn gae:unpack            # download the appengine SDK
+ mvn compile gae:run       # run a development server
+
+
