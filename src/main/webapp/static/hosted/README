@@ -1,0 +1,3 @@
+Use download-static-files.sh to download locally-hosted files for use in
+development (debug mode).  In production the files are served from Yahoo's 
+CDN servers.

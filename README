@@ -5,7 +5,9 @@ CPython cannot be safely sandboxed.
 
 Instructions:
 
- mvn gae:unpack            # download the appengine SDK
- mvn compile gae:run       # run a development server
+ ./download-static-files.sh  # download external files from other projects 
+
+ mvn gae:unpack              # download the appengine SDK
+ mvn compile gae:run         # run a development server
 
 

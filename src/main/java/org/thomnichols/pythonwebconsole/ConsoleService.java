@@ -49,7 +49,7 @@ public class ConsoleService {
 		interpreter.setOut( out );
 		interpreter.setErr( out );
 		interpreter.exec( source );
-		log.warn( "Output!1!!----------------- {}", out );
+		log.debug( "Output: {}", out );
 		return out.toString();
 	}
 	

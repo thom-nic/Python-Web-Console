@@ -4,7 +4,9 @@
 package org.thomnichols.pythonwebconsole;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +20,22 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class RootServlet extends HttpServlet {
+	private static final long serialVersionUID = 6074475136160037320L;
 	final Logger log = LoggerFactory.getLogger( getClass() );
+	
+	@Override
+	public void init() throws ServletException {
+		Enumeration<String> params = super.getInitParameterNames();
+		while ( params.hasMoreElements() ) {
+			String param = params.nextElement(); 
+			super.getServletContext().setAttribute( param,
+					super.getInitParameter( param ) ); 
+		}
+	}
 	
 	@Override
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
-		log.debug( "------------------------RootServlet#doGet" );
-		req.setAttribute( "title", "Test title" );
 		super.getServletContext().
 			getRequestDispatcher( "/index.jsp" ).forward( req, resp );
 	}

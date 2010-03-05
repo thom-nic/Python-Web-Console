@@ -2,8 +2,30 @@ body {
   text-align: left
 }
 
+h1 { 
+  text-align: right;
+  margin:0 
+}
+
+h2 { margin: 0 }
+
+#console, #output {
+  width: 48%;
+  float: left    
+}
+#console { margin-right:20px; }
+
 #console textarea, #output textarea {
-  width: 70%;
-  height: 400px;
-  font-family: monospace
+  font-family: monospace;
+  height: 330px;
+  width:100%;
+}
+
+#output textarea.error { 
+  background-color:#fdd;
+  color:#300;
+}
+
+#recentScripts, #footer {
+  clear: both
 }

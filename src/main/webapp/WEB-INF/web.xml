@@ -15,10 +15,27 @@
 	<servlet>
 	  <servlet-name>root</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.RootServlet</servlet-class>
+	  <init-param>
+	    <param-name>debug</param-name>
+	    <param-value>${debug}</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>yui_version</param-name>
+	    <param-value>${yui_version}</param-value>
+	  </init-param>
 	</servlet>
+	<servlet>
+	  <servlet-name>console</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.ConsoleServlet</servlet-class>
+  </servlet>
+  
 	<servlet-mapping>
-	    <servlet-name>root</servlet-name>
-	    <url-pattern>/</url-pattern>
+    <servlet-name>root</servlet-name>
+    <url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>console</servlet-name>
+    <url-pattern>/exec</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>
