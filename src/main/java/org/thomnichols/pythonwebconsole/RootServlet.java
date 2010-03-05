@@ -27,9 +27,13 @@ public class RootServlet extends HttpServlet {
 	public void init() throws ServletException {
 		Enumeration<String> params = super.getInitParameterNames();
 		while ( params.hasMoreElements() ) {
-			String param = params.nextElement(); 
-			super.getServletContext().setAttribute( param,
-					super.getInitParameter( param ) ); 
+			String param = params.nextElement();
+			String value = super.getInitParameter( param );
+			if ( "true".equalsIgnoreCase( value ) )
+				super.getServletContext().setAttribute( param, true );
+			else if ( "false".equalsIgnoreCase( value ) )
+				super.getServletContext().setAttribute( param, false );
+			else super.getServletContext().setAttribute( param, value );
 		}
 	}
 	
