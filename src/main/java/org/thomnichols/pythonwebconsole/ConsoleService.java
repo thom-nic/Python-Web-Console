@@ -14,6 +14,9 @@ import org.python.util.PythonInterpreter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.apphosting.api.ApiProxy;
+import com.google.apphosting.api.ApiProxy.Environment;
+
 public class ConsoleService {
 	
 	static final Logger log = LoggerFactory.getLogger( ConsoleService.class ); 
@@ -44,13 +47,20 @@ public class ConsoleService {
 		ScriptEngine engine = new ScriptEngineManager(classloader).getEngineByName( "python" );
 		engine.eval( source );
 */
-		PythonInterpreter interpreter = new PythonInterpreter( null, new PySystemState() );
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		interpreter.setOut( out );
-		interpreter.setErr( out );
-		interpreter.exec( source );
-		log.debug( "Output: {}", out );
-		return out.toString();
+		Environment env = ApiProxy.getCurrentEnvironment();
+		try {
+			ApiProxy.clearEnvironmentForCurrentThread();
+			PythonInterpreter interpreter = new PythonInterpreter( null, new PySystemState() );
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			interpreter.setOut( out );
+			interpreter.setErr( out );
+			interpreter.exec( source );
+			log.debug( "Output: {}", out );
+			return out.toString();
+		}
+		finally {
+			ApiProxy.setEnvironmentForCurrentThread(env);
+		}
 	}
 	
 	static class PyConsoleClassLoader extends URLClassLoader {
