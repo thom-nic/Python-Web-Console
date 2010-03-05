@@ -6,16 +6,20 @@ app = {};
 app.evalScript = function(btn,evt) {
 		var form = $('consoleForm');
 		var postData = $$.Forms.getQueryString(form);
+		$$('#header .busy').show();
 		YAHOO.util.Connect.asyncRequest( form.method, form.action, {
 			success: function( resp ) {
-				console.log( "response", resp );
+				console.debug( "response", resp );
+		  	$$('#header .busy').hide();
 				var data = resp.responseText.parseJSON();
 				app.outputText.setContent(data.output).setClass(data.status);
 			}, 
-			failure: function(resp) {
+			failure: function( resp ) {
+		  	$$('#header .busy').hide();
 				var msg = resp.statusText ? resp.statusText : 
-					resp.status ? resp.status : "Unknown error: " + o;
-				alert( "Error executing your script!\n" + msg );
+					resp.status ? resp.status : "Unknown error: " + resp;
+				app.outputText.setContent( "[Javacript error] :\n" + msg )
+					.setClass('error');
 			}
 		}, postData );
 		evt.stopEvent();
@@ -60,6 +64,7 @@ app.consoleKeyHandler = function(o,e) {
 app.handleShareSubmit = function() {
 		var form = $('shareDialogForm')
 		var postData = $$.Forms.getQueryString(form);
+		$$('#header .busy').show();
 		YAHOO.util.Connect.asyncRequest( 'POST', form.action, { 
 			success: function( resp ) {
 				console.log( resp );

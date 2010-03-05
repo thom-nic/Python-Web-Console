@@ -27,6 +27,7 @@
     </head>
     <body class="yui-skin-sam">
       <div id='header'>
+        <div class='busy' style='display:none'>&nbsp;</div>
         <h1>Python Web Console</h1>
       </div>
       <div id='console'>

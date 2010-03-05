@@ -29,3 +29,11 @@ h2 { margin: 0 }
 #recentScripts, #footer {
   clear: both
 }
+
+#header .busy {
+  background: url("/static/img/spinner.gif") no-repeat scroll 0 0 transparent;
+  width: 32px;
+  height: 32px;
+  float: left; 
+  position: absolute
+}
