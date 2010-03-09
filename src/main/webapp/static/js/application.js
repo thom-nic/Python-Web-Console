@@ -69,14 +69,16 @@ app.handleShareSubmit = function() {
 		YAHOO.util.Connect.asyncRequest( 'POST', form.action, { 
 			success: function( resp ) {
 				console.log( resp );
-				alert( resp.statusText );
-				$$('#header .busy').show();
+				var location = resp.getResponseHeader.Location;
+				if ( location ) window.location = location;
+				else alert( resp.statusText );
+				$$('#header .busy').hide();
 			}, 
 			failure: function(resp) {
 	      var msg = resp.statusText ? resp.statusText : 
 	        resp.status ? resp.status : "Unknown error: " + o;
 	      alert( "Error saving your script!\n" + msg );
-	  		$$('#header .busy').show();
+	  		$$('#header .busy').hide();
 		  }
 		}, postData );
 	};

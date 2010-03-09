@@ -19,9 +19,9 @@
       
       <div id='scriptInfo'>
    			by <span class='author'><c:out value='${script.author}' /></span>
-   			on <span class='publishDate'><c:out value='${script.publishDate}' /></span>
+   			on <span class='publishDate'><c:out value='${script.created}' /></span>
       </div>
-     	<pre id='source' class='brush:python'><c:out value='${source}' escapeXml='true'/></pre>
+     	<pre id='source' class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
 
 			<div id='controls'>
 				<a href='/console/${script.permalink}'>Edit</a>
@@ -31,6 +31,8 @@
 
 			<div id='comments'>(comments go here)</div>
 			
+			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shCore.css' rel="stylesheet" type="text/css" />
+			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
       <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js'></script>
 			<script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js'></script>
 			<script language="javascript">

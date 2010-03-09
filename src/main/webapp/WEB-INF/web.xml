@@ -44,7 +44,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>script</servlet-name>
-    <url-pattern>/script</url-pattern>
+    <url-pattern>/script/*</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>
