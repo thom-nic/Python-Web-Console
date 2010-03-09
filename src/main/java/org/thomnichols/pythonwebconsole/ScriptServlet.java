@@ -33,8 +33,6 @@ public class ScriptServlet extends HttpServlet {
 		// TODO add this to the servlet context if any other servlets need to 
 		// access the datastore 
 		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
-//		getServletContext().setAttribute( "persistence", pmf );
-//		this.pmf = (PersistenceManagerFactory) getServletContext().getAttribute( "persistence" );
 	}
 	
 	@Override

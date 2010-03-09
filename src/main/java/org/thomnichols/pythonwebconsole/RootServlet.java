@@ -6,6 +6,8 @@ package org.thomnichols.pythonwebconsole;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManagerFactory;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +37,9 @@ public class RootServlet extends HttpServlet {
 				super.getServletContext().setAttribute( param, false );
 			else super.getServletContext().setAttribute( param, value );
 		}
+//		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datastore");
+//		getServletContext().setAttribute( "persistence", pmf );
+//		this.pmf = (PersistenceManagerFactory) getServletContext().getAttribute( "persistence" );
 	}
 	
 	@Override

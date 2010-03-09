@@ -23,6 +23,7 @@
 	    <param-name>yui_version</param-name>
 	    <param-value>${yui_version}</param-value>
 	  </init-param>
+	  <load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
 	  <servlet-name>console</servlet-name>
