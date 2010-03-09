@@ -31,10 +31,20 @@
 
 			<div id='comments'>(comments go here)</div>
 			
+			<c:choose>
+			<c:when test='${debug}'>
+			<link href='/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
+			<link href='/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
+      <script src='/static/hosted/syntax/shCore.js' type='text/javascript'></script>
+			<script src='/static/hosted/syntax/shBrushPython.js' type='text/javascript'></script> 
+			</c:when>
+			<c:otherwise>
 			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shCore.css' rel="stylesheet" type="text/css" />
 			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
-      <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js'></script>
-			<script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js'></script>
+      <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' type='text/javascript'></script>
+			<script src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js' type='text/javascript'></script>
+			</c:otherwise>
+			</c:choose>
 			<script language="javascript">
 			  //SyntaxHighlighter.defaults['light'] = true;
 			  SyntaxHighlighter.defaults['wrap-lines'] = false;
