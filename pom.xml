@@ -98,11 +98,13 @@
       <groupId>com.google.appengine</groupId>
       <artifactId>datanucleus-jpa</artifactId>
       <version>1.1.5</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>geronimo-jpa_3.0_spec</artifactId>
       <version>1.1.1</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
         <groupId>com.google.appengine</groupId>
