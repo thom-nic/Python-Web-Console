@@ -2,42 +2,43 @@ package org.thomnichols.pythonwebconsole.model;
 
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class Script {
-    @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+    @PrimaryKey private String permalink;
     @Persistent private String author;
-    @Persistent private String source;
-    @Persistent private Date created;
+    @Persistent private Text source;
+    @Persistent private Date created = new Date();
+    @Persistent private String[] tags;
+    @Persistent private String title;
 
-    public Script(String author, String source, Date created) {
+    public Script(String author, String source, String title, String[] tags ) {
         this.author = author;
-        this.source = source;
-        this.created = created;
+        this.source = new Text( source );
+        this.title = title;
+        this.tags = tags;
+        
+        this.permalink = generatePermalink();
+    }
+    
+    private String generatePermalink() {
+    	// TODO make static pattern object for performance
+    	return this.title.replaceAll( "[\\s'\"`~!@#$%^&*()_\\-\\+={}\\[\\];:,.<>/?\\\\]+", "-" );
+    }
+    
+    public void generateNewPermalink() {
+    	this.permalink = generatePermalink() + "-" + ( System.currentTimeMillis() % 99999 ); 
     }
 
-    public Key getKey() { return this.key; }
     public String getAuthor() { return this.author; }
-    public String getSource() { return this.source; }
+    public String getSource() { return this.source.getValue(); }
     public Date getCreated() { return this.created; }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public void setCreated(Date date) {
-        this.created = date;
-    }
+    public String getTitle() { return this.title; }
+    public String[] getTags() { return this.tags; }
+    public String getPermalink() { return this.permalink; }
 }

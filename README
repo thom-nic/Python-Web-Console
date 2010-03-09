@@ -11,3 +11,14 @@ Instructions:
  mvn compile gae:run         # run a development server
 
 
+TODO
+ * "Modify this script" feature
+ * List all tags (& cache that!)
+ * Comments
+ * Syntax hilighting for editor
+ * Captcha for publishing/ commenting anonymously
+ * Login for editing/deleting published scripts per-user
+ * Atom feeds for all published scripts
+ * Atom feeds by tag
+ * 'report this script' feature
+ * Atom feeds for script comments

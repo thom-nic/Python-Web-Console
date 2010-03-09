@@ -28,7 +28,12 @@
 	  <servlet-name>console</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.ConsoleServlet</servlet-class>
   </servlet>
+	<servlet>
+	  <servlet-name>script</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.ScriptServlet</servlet-class>
+  </servlet>
   
+	<!-- TODO catch-all that redirects to 404 page. -->
 	<servlet-mapping>
     <servlet-name>root</servlet-name>
     <url-pattern>/</url-pattern>
@@ -36,6 +41,10 @@
 	<servlet-mapping>
     <servlet-name>console</servlet-name>
     <url-pattern>/exec</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>script</servlet-name>
+    <url-pattern>/script</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>

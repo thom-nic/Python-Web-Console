@@ -62,24 +62,26 @@ app.consoleKeyHandler = function(o,e) {
 	};
 
 app.handleShareSubmit = function() {
-		var form = $('shareDialogForm')
+		var form = $('shareForm');
+		form['source'].value = $('consoleForm')['src'].value;
 		var postData = $$.Forms.getQueryString(form);
 		$$('#header .busy').show();
 		YAHOO.util.Connect.asyncRequest( 'POST', form.action, { 
 			success: function( resp ) {
 				console.log( resp );
 				alert( resp.statusText );
+				$$('#header .busy').show();
 			}, 
 			failure: function(resp) {
 	      var msg = resp.statusText ? resp.statusText : 
 	        resp.status ? resp.status : "Unknown error: " + o;
 	      alert( "Error saving your script!\n" + msg );
+	  		$$('#header .busy').show();
 		  }
 		}, postData );
 	};
 	
 app.shareDialog = new YAHOO.widget.Dialog( "shareDialog", {
-	  width: "520px",
 	  fixedcenter: true,
 	  visible: false,
 	  modal: true,
@@ -105,6 +107,12 @@ Ojay.onDOMReady( function() {
 	app.consoleText.setContent( Util.getText( app.consoleText.node ).trim() );
 	app.outputText = $$('#output textarea');
 	app.outputText.setContent( Util.getText( app.outputText.node ).trim() );
+	
+	app.shareDialog.render();
+	$$('#shareBtn').on('click',function(btn,evt) {
+		app.shareDialog.show();
+		evt.stopEvent();
+	});
 });
 
 Util = {

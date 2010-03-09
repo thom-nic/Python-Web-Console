@@ -58,6 +58,27 @@
       <div id='footer'>&copy; 2010 Thom Nichols
       </div>
       
+      <div id='shareDialog'>
+ 		  	<div class="hd">Share This Script!</div>
+    		<div class="bd">
+	       	<form id='shareForm' action='script' method='post'>
+	      		<div>
+		      		<label for='author'>Your name:</label>
+		      		<input type='text' name='author' id='author'></input>
+	      		</div>
+	      		<div>
+		      		<label for='author'>Script Title:</label>
+		      		<input type='text' name='title' id='title'></input>
+	      		</div>
+	      		<div>
+		      		<label for='author'>Tags:</label>
+		      		<input type='text' name='tags' id='tags'></input>
+	      		</div>
+	      		<input type='hidden' name='source' class='source'></input>
+	      	</form>
+      	</div>
+      </div>
+      
       <c:choose>
       <c:when test='${debug}'>
       <script type="text/javascript" src='/static/hosted/yui/yahoo-dom-event/yahoo-dom-event.js'></script>
