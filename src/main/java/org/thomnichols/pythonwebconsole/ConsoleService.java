@@ -55,7 +55,7 @@ public class ConsoleService {
 			interpreter.setOut( out );
 			interpreter.setErr( out );
 			interpreter.exec( source );
-			log.debug( "Output: {}", out );
+//			log.debug( "Output: {}", out );
 			return out.toString();
 		}
 		finally {
