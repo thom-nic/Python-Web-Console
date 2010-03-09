@@ -22,6 +22,11 @@
    			on <span class='publishDate'><c:out value='${script.created}' /></span>
       </div>
      	<pre id='source' class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
+     	<div id='tags'>
+     	<c:forEach var='tag' items='${script.tags}'>
+     		<a href='/tag/${tag}'>${tag}</a> &nbsp;
+     	</c:forEach>
+     	</div>
 
 			<div id='controls'>
 				<a href='/console/${script.permalink}'>Edit</a>

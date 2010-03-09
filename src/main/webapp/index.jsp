@@ -50,13 +50,25 @@
       </div>
       
       <div id='recentScripts'>
+      <c:forEach items='${recentScripts}' var='recentScript'>
+      	<div class='scriptItem'>
+      		<a href='/script/${recentScript.permalink}' class='title'>${recentScript.title}</a> by
+      		<span class='author'>${recentScript.author}</span> on
+      		<span class='date'>${recentScript.created}</span> 
+      	</div>
+      </c:forEach>
+      </div>
+      
+      <div id='tags'>(tags go here)
       </div>
       
       <div id='otherLinks'>
+      	<a href='http://blog.thomnichols.org'>Thom Nichols</a>
+      	<a href='http://code.google.com/appengine/'>AppEngine</a>
+      	<a href='http://jython.org'>Jython</a>
       </div>
       
-      <div id='footer'>&copy; 2010 Thom Nichols
-      </div>
+      <div id='footer'>&copy; 2010 Thom Nichols</div>
       
       <div id='shareDialog'>
  		  	<div class="hd">Share This Script!</div>
