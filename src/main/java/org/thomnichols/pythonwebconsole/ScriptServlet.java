@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Script;
+import org.thomnichols.pythonwebconsole.model.Tag;
 
 /**
  * This servlet handles sharing and retrieving saved scripts. 
+ * TODO handle script update & delete by author?  
  * @author tnichols
  */
 public class ScriptServlet extends HttpServlet {
@@ -30,9 +32,7 @@ public class ScriptServlet extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		// TODO add this to the servlet context if any other servlets need to 
-		// access the datastore 
-		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
+		this.pmf = (PersistenceManagerFactory)super.getServletContext().getAttribute( "persistence" );
 	}
 	
 	@Override
@@ -65,13 +65,13 @@ public class ScriptServlet extends HttpServlet {
 		Transaction tx = pm.currentTransaction();
         try {
         	// TODO validate input
-        	String author = req.getParameter( "author" );
-        	String source = req.getParameter( "source" );
-        	String title = req.getParameter( "title" );
+        	String author = validateParam( req, "author" );
+        	String source = validateParam( req, "source" );
+        	String title = validateParam( req, "title" );
         	
         	String tagString = req.getParameter( "tags" );
         	if ( tagString == null ) tagString = "";
-        	String[] tags = tagString.split( "\\s" );
+        	String[] tags = tagString.split( "[\\s,]+" );
         	
         	Script script = new Script( author, source, title, tags );
         	tx.begin();
@@ -82,7 +82,21 @@ public class ScriptServlet extends HttpServlet {
         		script.generateNewPermalink();
         	log.debug( "Saving new script with permalink: {}", script.getPermalink() );
             pm.makePersistent( script );
+            
             tx.commit();
+
+            // update tag count:
+            for ( String tagName : script.getTags() ) {
+	            try {
+	    			Tag tag = pm.getObjectById(Tag.class, tagName);
+	    			tag.setCount( tag.getCount() + 1 );
+	    		}
+	    		catch ( JDOObjectNotFoundException ex ) {
+	    			Tag tag = new Tag(tagName, 1);
+	    			pm.makePersistent(tag);
+	    		}
+            }
+            
             // Send a 201:Created response for Ajax requests.
         	if ( "XMLHttpRequest".equals(req.getHeader("X-Requested-With")) ) {
         		resp.setStatus(201);
@@ -93,9 +107,12 @@ public class ScriptServlet extends HttpServlet {
         		
             resp.sendRedirect( "/script/"+script.getPermalink() );
         }
+        catch ( ValidationException ex ) {
+        	log.warn( "Validation failed", ex );
+			resp.sendError( 400, "Validation failed  " + ex.getMessage() );
+        }
         catch ( Exception e ) {
         	log.warn( "Unexpected exception while saving script", e );
-			// TODO proper error handling
 			resp.sendError( 500, "Unexpected error: " + e.getMessage() );
         } finally {
         	if ( tx.isActive() ) {
@@ -104,5 +121,13 @@ public class ScriptServlet extends HttpServlet {
         	}
         	pm.close();
         }
+	}
+	
+	protected String validateParam( HttpServletRequest req, String paramName ) 
+			throws ValidationException {
+		String param = req.getParameter( paramName );
+		if ( param == null || "".equals( param.trim() ) )
+			throw new ValidationException( "For parameter: " + paramName );
+		return param;
 	}
 }

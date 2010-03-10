@@ -4,17 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <title>${title}</title>
-        <link rel="alternate" type="application/rss+xml" title="Python Web Console RSS Feed" 
-              href="/atom.xml" />
-        <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png"/>
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css" />
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base-min.css" />
-        <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen,print" />
+        <title><c:out value='${script.title}' /> :: Python Web Console</title>
+        <jsp:include page='/WEB-INF/head.jsp' />
     </head>
     <body>
       <div id='header'>
-        <h1>${script.title} :: Python Web Console</h1>
+        <h1><c:out value='${script.title}' /> :: Python Web Console</h1>
       </div>
       
       <div id='scriptInfo'>
@@ -23,8 +18,9 @@
       </div>
      	<pre id='source' class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
      	<div id='tags'>
+     		<h3>Tags</h3>
      	<c:forEach var='tag' items='${script.tags}'>
-     		<a href='/tag/${tag}'>${tag}</a> &nbsp;
+     		<a href='${contextPath}/tag/${tag}'><c:out value='${tag}' /></a> &nbsp;
      	</c:forEach>
      	</div>
 
@@ -34,14 +30,17 @@
 				<a href='#'>Add Comment</a>
 			</div>
 
-			<div id='comments'>(comments go here)</div>
+			<div id='comments'>
+				<h3>Comments</h3>
+				(comments go here)
+			</div>
 			
 			<c:choose>
 			<c:when test='${debug}'>
-			<link href='/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
-			<link href='/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
-      <script src='/static/hosted/syntax/shCore.js' type='text/javascript'></script>
-			<script src='/static/hosted/syntax/shBrushPython.js' type='text/javascript'></script> 
+			<link href='${contextPath}/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
+			<link href='${contextPath}/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
+      <script src='${contextPath}/static/hosted/syntax/shCore.js' type='text/javascript'></script>
+			<script src='${contextPath}/static/hosted/syntax/shBrushPython.js' type='text/javascript'></script> 
 			</c:when>
 			<c:otherwise>
 			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shCore.css' rel="stylesheet" type="text/css" />

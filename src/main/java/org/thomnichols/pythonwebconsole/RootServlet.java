@@ -4,15 +4,15 @@
 package org.thomnichols.pythonwebconsole;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Script;
+import org.thomnichols.pythonwebconsole.model.Tag;
 
 /**
  * @author tnichols
@@ -44,21 +45,26 @@ public class RootServlet extends HttpServlet {
 			else super.getServletContext().setAttribute( param, value );
 		}
 		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
+		super.getServletContext().setAttribute( "persistence", pmf );
 	}
-	
+
 	@Override
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
-		req.setAttribute("recentScripts", getRecentScripts());
-		super.getServletContext().
-			getRequestDispatcher( "/index.jsp" ).forward( req, resp );
+		PersistenceManager pm = pmf.getPersistenceManager();
+        try {
+        	req.setAttribute("recentScripts", getRecentScripts(pm));
+        	req.setAttribute("tagCloud", getTagCloud(pm));
+			super.getServletContext().
+				getRequestDispatcher( "/index.jsp" ).forward( req, resp );
+        } finally { pm.close(); }
 	}
 	
 	@Override
 	protected void doPost( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
 		String result = "(no output)";
-		String source = req.getParameter( "src" );
+		String source = req.getParameter( "src" ); 
 		String status = "normal";
 		try {
 			if ( source != null ) result = new ConsoleService().exec( source );
@@ -75,12 +81,19 @@ public class RootServlet extends HttpServlet {
 			getRequestDispatcher( "/index.jsp" ).forward( req, resp );
 	}
 	
+	private Collection<Tag> getTagCloud( PersistenceManager pm ) {
+		Query q = pm.newQuery( Tag.class, "count > 0" );
+		q.setOrdering("count desc");
+		q.setRange(0,15);
+		// reorder tags alphabetically.
+		return new TreeSet<Tag>( (List<Tag>) q.execute() );
+	}
+	
 	// TODO memcache!
-	private List<Script> getRecentScripts() {
-		PersistenceManager pm = pmf.getPersistenceManager();
-        try {
-        	Query query = pm.newQuery( Script.class, "order by created desc range 10" );
-    		return (List<Script>)query.execute();
-        } finally { pm.close(); }
+	private List<Script> getRecentScripts( PersistenceManager pm ) {
+    	Query query = pm.newQuery( Script.class );
+    	query.setOrdering( "created desc" );
+    	query.setRange( 0, 10 );
+		return (List<Script>)query.execute();
 	}
 }

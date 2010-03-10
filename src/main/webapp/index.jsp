@@ -10,20 +10,7 @@
         <meta name="msvalidate.01" content="" />
         <link rel="alternate" type="application/rss+xml" title="Python Web Console RSS Feed" 
               href="/atom.xml" />
-        <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png"/>
-        <c:choose>
-        <c:when test='${debug}'>
-        <link rel="stylesheet" type="text/css" href="/static/hosted/yui/reset-fonts-grids/reset-fonts-grids.css" />
-        <link rel="stylesheet" type="text/css" href="/static/hosted/yui/base-min.css" />
-        <link rel="stylesheet" type="text/css" href="/static/hosted/yui/assets/skins/sam/skin.css" />
-        </c:when>
-        <c:otherwise>
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/${yui_version}/build/reset-fonts-grids/reset-fonts-grids.css" />
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/${yui_version}/build/base/base-min.css" />
-        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/${yui_version}/build/assets/skins/sam/skin.css" />
-        </c:otherwise>
-        </c:choose>
-        <link rel="stylesheet" href="/static/style.css" type="text/css" media="screen,print" />
+        <jsp:include page='/WEB-INF/head.jsp' />
     </head>
     <body class="yui-skin-sam">
       <div id='header'>
@@ -50,19 +37,25 @@
       </div>
       
       <div id='recentScripts'>
+      	<h3>Recent Items</h3>
       <c:forEach items='${recentScripts}' var='recentScript'>
       	<div class='scriptItem'>
-      		<a href='/script/${recentScript.permalink}' class='title'>${recentScript.title}</a> by
-      		<span class='author'>${recentScript.author}</span> on
-      		<span class='date'>${recentScript.created}</span> 
+      		<a href='/script/${recentScript.permalink}' class='title'><c:out value='${recentScript.title}' /></a> by
+      		<span class='author'><c:out value='${recentScript.author}'/></span> on
+      		<span class='date'><c:out value='${recentScript.created}'/></span> 
       	</div>
       </c:forEach>
       </div>
       
-      <div id='tags'>(tags go here)
+      <div id='tags'>
+      	<h3>Popular Tags</h3>
+	      <c:forEach items='${tagCloud}' var='tag'>
+	      	<span><a href='/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
+				</c:forEach>
       </div>
       
       <div id='otherLinks'>
+      	<h3>Related Links</h3>
       	<a href='http://blog.thomnichols.org'>Thom Nichols</a>
       	<a href='http://code.google.com/appengine/'>AppEngine</a>
       	<a href='http://jython.org'>Jython</a>
