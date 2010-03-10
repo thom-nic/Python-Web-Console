@@ -1,13 +1,15 @@
 body {
-  text-align: left
+  text-align: left;
 }
 
-h1 { 
-  text-align: right;
-  margin:0 
-}
+h1,h2,h3 { margin:0 }
 
-h2 { margin: 0 }
+h1 { text-align: right; }
+
+textarea, input[type=text] {
+	background-color: #ddd;
+	border: solid 1px #ccc
+}
 
 #console, #output {
   width: 48%;
@@ -17,17 +19,44 @@ h2 { margin: 0 }
 
 #console textarea, #output textarea {
   font-family: monospace;
+  font-weight: bold;
   height: 330px;
   width:100%;
+  background-color:#222;
+  border: solid 2px #666;
+  border-radius: 4px; -moz-border-radius: 4px;
+	color: #0d1;
+	padding: 3px
 }
+
+#console .actions { margin: 8px 0 }
+#console .actions .note { font-style: italic }
 
 #output textarea.error { 
   background-color:#fdd;
   color:#300;
 }
 
-#recentScripts, #footer {
-  clear: both
+#moreItems, #footer {
+	margin-top: 8px;
+	clear: both
+}
+
+#recentScripts, #tagCloud, #otherLinks {
+	padding: 4px;
+	background-color: #ddd;
+	border: solid 2px #ccc;
+  float: left;
+	width: 300px
+}
+#recentScripts { width: 500px }
+#tagCloud, #otherLinks { margin-left: 10px }
+
+#shareDialog .bd div { margin: 2px 0 }
+#shareDialog .bd label {  }
+#shareDialog .bd input {
+	float: right; 
+	margin-left: 20px
 }
 
 #header .busy {

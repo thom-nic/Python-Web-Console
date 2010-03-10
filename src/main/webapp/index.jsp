@@ -17,6 +17,7 @@
         <div class='busy' style='display:none'>&nbsp;</div>
         <h1>Python Web Console</h1>
       </div>
+      <div>
       <div id='console'>
       	<h2>Source</h2>
         <form id='consoleForm' action='/exec' method='post'>
@@ -24,41 +25,49 @@
 	          	<c:otherwise># Script text here</c:otherwise>
           	</c:choose>
           </textarea>
-          <div class='actions'>
+          <div class='actions'>Actions:
             <input type='submit' id='runBtn' value='Run' />
             <input type='submit' id='shareBtn' value='Share' />
+            <span class='note'>You can execute the script by pressing [Ctrl-Enter]</span>
           </div>
         </form>
       </div>
       <div id='output'>
       	<h2>Output</h2>
-        <textarea class='${status}'><c:if test='${output!=null}'><c:out value='${output}' escapeXml='true'/></c:if>
+        <textarea class='${status}' readonly='true'><c:if test='${output!=null}'><c:out value='${output}' escapeXml='true'/></c:if>
         </textarea>
       </div>
-      
-      <div id='recentScripts'>
-      	<h3>Recent Items</h3>
-      <c:forEach items='${recentScripts}' var='recentScript'>
-      	<div class='scriptItem'>
-      		<a href='/script/${recentScript.permalink}' class='title'><c:out value='${recentScript.title}' /></a> by
-      		<span class='author'><c:out value='${recentScript.author}'/></span> on
-      		<span class='date'><c:out value='${recentScript.created}'/></span> 
-      	</div>
-      </c:forEach>
       </div>
       
-      <div id='tags'>
-      	<h3>Popular Tags</h3>
-	      <c:forEach items='${tagCloud}' var='tag'>
-	      	<span><a href='/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
-				</c:forEach>
-      </div>
-      
-      <div id='otherLinks'>
-      	<h3>Related Links</h3>
-      	<a href='http://blog.thomnichols.org'>Thom Nichols</a>
-      	<a href='http://code.google.com/appengine/'>AppEngine</a>
-      	<a href='http://jython.org'>Jython</a>
+      <div id='moreItems'>
+	      <div id='recentScripts'>
+	      	<h3>Recent Items</h3>
+	      	<ul>
+		      <c:forEach items='${recentScripts}' var='recentScript'>
+		      	<li>
+		      		<a href='/script/${recentScript.permalink}' class='title'><c:out value='${recentScript.title}' /></a> by
+		      		<span class='author'><c:out value='${recentScript.author}'/></span> on
+		      		<span class='date'><c:out value='${recentScript.created}'/></span>
+		      	</li> 
+	      	</c:forEach>
+	      	<ul>
+	      </div>
+	      
+	      <div id='tagCloud'>
+	      	<h3>Popular Tags</h3>
+		      <c:forEach items='${tagCloud}' var='tag'>
+		      	<span><a href='/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
+					</c:forEach>
+	      </div>
+
+	      <div id='otherLinks'>
+	      	<h3>Related Links</h3>
+	      	<a href='http://blog.thomnichols.org'>Thom Nichols</a>
+	      	<a href='http://jython.org'>Jython</a>
+	      	<a href='http://code.google.com/appengine/'>
+	      		<img id="poweredby" alt="Powered by Google App Engine" 
+            src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" /></a>
+	      </div>      
       </div>
       
       <div id='footer'>&copy; 2010 Thom Nichols</div>
@@ -106,8 +115,5 @@
 			</c:otherwise>
       </c:choose>
       <script type="text/javascript" src="/static/js/application.js"></script>
-      
-      <img id="poweredby" alt="Powered by Google App Engine" 
-                      src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif" />
     </body>
 </html>
