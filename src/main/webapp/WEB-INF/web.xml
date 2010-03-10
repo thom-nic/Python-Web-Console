@@ -33,6 +33,10 @@
 	  <servlet-name>script</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.ScriptServlet</servlet-class>
   </servlet>
+	<servlet>
+	  <servlet-name>tag</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.TagServlet</servlet-class>
+  </servlet>
   
 	<!-- TODO catch-all that redirects to 404 page. -->
 	<servlet-mapping>
@@ -46,6 +50,10 @@
 	<servlet-mapping>
     <servlet-name>script</servlet-name>
     <url-pattern>/script/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>tag</servlet-name>
+    <url-pattern>/tag/*</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>
