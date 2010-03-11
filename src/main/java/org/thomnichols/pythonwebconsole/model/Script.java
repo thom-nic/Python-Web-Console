@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class Script {
-	static final DateFormat rfcFormat = new SimpleDateFormat("yyyy-MM-dd'T'h:m:ssZ");
+	static final DateFormat rfcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:m:ssZ");
     @PrimaryKey private String permalink;
     @Persistent private String author;
     @Persistent private Text source;
