@@ -1,10 +1,10 @@
-<%@ page contentType='application/rss+xml' isELIgnored='false' %><%@ taglib 
+<%@ page contentType='application/rss+xml; charset=utf-8' isELIgnored='false' %><%@ taglib 
  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title type="text">Python Web Console</title>
     <subtitle type="text">${subTitle}</subtitle>
     <updated>${scripts[0].createdRFC}</updated>
-    <id>${baseURL}</id>
+    <id>${baseURL}/</id>
     <link rel="alternate" type="text/html" hreflang="en" href="${baseURL}" />
     <link rel="self" type="application/atom+xml" href="${baseURL}" />
     <rights>Copyright (c) 2008, Thom Nichols</rights>
