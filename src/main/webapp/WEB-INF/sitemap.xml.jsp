@@ -13,7 +13,7 @@
 <url>
 	<loc>${contextPath}${script.permalink}</loc>
 	<priority>0.80</priority>
-	<lastmod>${script.created}</lastmod>
+	<lastmod>${script.createdRFC}</lastmod>
 	<changefreq>monthly</changefreq>
 </url>
 </c:forEach>
