@@ -57,7 +57,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>console</servlet-name>
-    <url-pattern>/exec</url-pattern>
+    <url-pattern>/console</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>script</servlet-name>
