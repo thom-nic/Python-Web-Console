@@ -44,6 +44,10 @@ public class RootServlet extends HttpServlet {
 				super.getServletContext().setAttribute( param, false );
 			else super.getServletContext().setAttribute( param, value );
 		}
+		super.getServletContext().setAttribute( "baseURL",
+				super.getInitParameter( "baseURL" ) + 
+				getServletContext().getContextPath() );
+
 		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
 		super.getServletContext().setAttribute( "persistence", pmf );
 	}

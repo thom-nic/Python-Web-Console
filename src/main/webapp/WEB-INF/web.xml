@@ -23,6 +23,10 @@
 	    <param-name>yui_version</param-name>
 	    <param-value>${yui_version}</param-value>
 	  </init-param>
+	  <init-param>
+	    <param-name>baseURL</param-name>
+	    <param-value>${baseURL}</param-value>
+	  </init-param>
 	  <load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
@@ -36,6 +40,14 @@
 	<servlet>
 	  <servlet-name>tag</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.TagServlet</servlet-class>
+  </servlet>
+	<servlet>
+	  <servlet-name>atom</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.AtomServlet</servlet-class>
+  </servlet>
+	<servlet>
+	  <servlet-name>sitemap</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.SitemapServlet</servlet-class>
   </servlet>
   
 	<!-- TODO catch-all that redirects to 404 page. -->
@@ -55,12 +67,21 @@
     <servlet-name>tag</servlet-name>
     <url-pattern>/tag/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>atom</servlet-name>
+    <url-pattern>/atom.xml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>sitemap</servlet-name>
+    <url-pattern>/sitemap.xml</url-pattern>
+	</servlet-mapping>
 	
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<el-ignored>false</el-ignored>
-			<page-encoding>application/xhtml+xml; charset=UTF-8</page-encoding>		
+			<page-encoding>application/xhtml+xml; charset=UTF-8</page-encoding>
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>		
 		</jsp-property-group>
 	</jsp-config>
 	

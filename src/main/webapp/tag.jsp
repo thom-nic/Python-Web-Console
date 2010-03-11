@@ -1,10 +1,13 @@
-<%@ page isELIgnored='false' %>
+<%@ page isELIgnored='false' contentType='text/xml' %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
         <title>Recent scripts tagged with '<c:out value='${tag.name}'/>' :: Python Web Console</title>
+        <link rel="alternate" type="application/rss+xml" 
+        	title="Python Web Console RSS Feed for tag '${tag.name}'" 
+          href="${contextPath}atom.xml?tag=${tag.name}" />
         <jsp:include page='/WEB-INF/head.jsp' />
     </head>
     <body>
@@ -18,7 +21,7 @@
       <ul>
       <c:forEach var='script' items='${scripts}'>
       	<li>
-      		<a href='/script/${script.permalink}'><c:out value='${script.title}' /></a>
+      		<a href='${contextPath}/script/${script.permalink}'><c:out value='${script.title}' /></a>
       		by <span class='author'><c:out value='${script.author}' /></span>
    				on <span class='publishDate'><c:out value='${script.created}' /></span>
    			</li>
