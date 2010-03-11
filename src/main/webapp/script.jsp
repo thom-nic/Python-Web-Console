@@ -26,7 +26,7 @@
 
 			<div id='controls'>
 				<a href='/console/${script.permalink}'>Edit</a>
-				<a href='/console/post/${script.permalink}'>Run</a>
+				<a href='/console/${script.permalink}#Run'>Run</a>
 				<a href='#'>Add Comment</a>
 			</div>
 

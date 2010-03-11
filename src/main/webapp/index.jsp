@@ -21,10 +21,10 @@
       <div id='console'>
       	<h2>Source</h2>
         <form id='consoleForm' action='/exec' method='post'>
-          <textarea name='src'><c:choose><c:when test='${source!=null}'><c:out value='${source}' escapeXml='true'/></c:when>
+          <textarea name='src'><c:choose>
+          	<c:when test='${source!=null}'><c:out value='${source}' escapeXml='true'/></c:when>
 	          	<c:otherwise># Script text here</c:otherwise>
-          	</c:choose>
-          </textarea>
+          </c:choose></textarea>
           <div class='actions'>Actions:
             <input type='submit' id='runBtn' value='Run' />
             <input type='submit' id='shareBtn' value='Share' />
