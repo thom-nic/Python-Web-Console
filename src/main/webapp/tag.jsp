@@ -5,9 +5,9 @@
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
         <title>Recent scripts tagged with '<c:out value='${tag.name}'/>' :: Python Web Console</title>
-        <link rel="alternate" type="application/rss+xml" 
+        <link rel="alternate" type="application/atom+xml" 
         	title="Python Web Console RSS Feed for tag '${tag.name}'" 
-          href="${contextPath}atom.xml?tag=${tag.name}" />
+          href="${contextPath}/atom.xml?tag=${tag.name}" />
         <jsp:include page='/WEB-INF/head.jsp' />
     </head>
     <body>

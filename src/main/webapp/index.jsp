@@ -8,8 +8,8 @@
         <meta name="google-site-verification" content="" />
         <meta name="y_key" content="" />
         <meta name="msvalidate.01" content="" />
-        <link rel="alternate" type="application/rss+xml" title="Python Web Console RSS Feed" 
-              href="/atom.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Python Web Console RSS Feed" 
+              href="${contextPath}/atom.xml" />
         <jsp:include page='/WEB-INF/head.jsp' />
     </head>
     <body class="yui-skin-sam">
