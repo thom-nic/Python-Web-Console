@@ -20,7 +20,7 @@
       <div>
       <div id='console'>
       	<h2>Source</h2>
-        <form id='consoleForm' action='/console' method='post'>
+        <form id='consoleForm' action='${contextPath}/console/' method='post'>
           <textarea name='src'><c:choose>
           	<c:when test='${source!=null}'><c:out value='${source}' escapeXml='true'/></c:when>
 	          	<c:otherwise># Script text here</c:otherwise>
@@ -56,7 +56,7 @@
 	      <div id='tagCloud'>
 	      	<h3>Popular Tags</h3>
 		      <c:forEach items='${tagCloud}' var='tag'>
-		      	<span><a href='/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
+		      	<span><a href='${contextPath}/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
 					</c:forEach>
 	      </div>
 
@@ -75,7 +75,7 @@
       <div id='shareDialog'>
  		  	<div class="hd">Share This Script!</div>
     		<div class="bd">
-	       	<form id='shareForm' action='script' method='post'>
+	       	<form id='shareForm' action='${contextPath}/script/' method='post'>
 	      		<div>
 		      		<label for='author'>Your name:</label>
 		      		<input type='text' name='author' id='author'></input>
