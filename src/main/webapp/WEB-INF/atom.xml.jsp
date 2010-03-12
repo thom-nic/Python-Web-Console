@@ -6,7 +6,7 @@
     <updated>${scripts[0].createdRFC}</updated>
     <id>${baseURL}/</id>
     <link rel="alternate" type="text/html" hreflang="en" href="${baseURL}" />
-    <link rel="self" type="application/atom+xml" href="${baseURL}" />
+    <link rel="self" type="application/atom+xml" href="${baseURL}/atom.xml" />
     <rights>Copyright (c) 2008, Thom Nichols</rights>
 
     <generator uri="${baseURL}" version="0.1">Python Web Console</generator>
