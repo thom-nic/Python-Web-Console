@@ -40,7 +40,7 @@ public class ConsoleServlet extends HttpServlet {
     		// lookup script based on script id/ permalink
         	Script script = pm.getObjectById( Script.class, permalink );
         	req.setAttribute( "source", script.getSource() );
-    		req.getRequestDispatcher( "/index.jsp" ).forward( req, resp );
+    		req.getRequestDispatcher( "/" ).forward( req, resp );
         }
         catch ( JDOObjectNotFoundException ex ) {
         	resp.sendError( 404, "Say wha?" );

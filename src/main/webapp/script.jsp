@@ -16,19 +16,24 @@
    			by <span class='author'><c:out value='${script.author}' /></span>
    			on <span class='publishDate'><c:out value='${script.created}' /></span>
       </div>
-     	<pre id='source' class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
-     	<div id='tags'>
-     		<h3>Tags</h3>
-     	<c:forEach var='tag' items='${script.tags}'>
-     		<a href='${contextPath}/tag/${tag}'><c:out value='${tag}' /></a> &nbsp;
-     	</c:forEach>
+      <div id='source'>
+	     	<pre class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
      	</div>
 
-			<div id='controls'>
-				<a href='/console/${script.permalink}'>Edit</a>
-				<a href='/console/${script.permalink}#Run'>Run</a>
-				<a href='#'>Add Comment</a>
-			</div>
+			<div style='float:left'>
+				<div id='controls'>
+					<a href='/console/${script.permalink}'>Edit</a>
+					<a href='/console/${script.permalink}#run'>Run</a>
+					<a href='#'>Add Comment</a>
+				</div>
+	
+	     	<div id='tagCloud'>
+	     		<h3>Tags</h3>
+	     	<c:forEach var='tag' items='${script.tags}'>
+	     		<a href='${contextPath}/tag/${tag}'><c:out value='${tag}' /></a> &nbsp;
+	     	</c:forEach>
+	     	</div>
+     	</div>
 
 			<div id='comments'>
 				<h3>Comments</h3>

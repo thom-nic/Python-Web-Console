@@ -115,6 +115,9 @@ Ojay.onDOMReady( function() {
 		app.shareDialog.show();
 		evt.stopEvent();
 	});
+	
+	// auto-run the loaded script
+	if ( window.location.hash == "#run" ) Util.fireEvent( $('runBtn'),'click' );
 });
 
 Util = {
