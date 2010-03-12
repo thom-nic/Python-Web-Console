@@ -53,11 +53,11 @@
 	<!-- TODO catch-all that redirects to 404 page. -->
 	<servlet-mapping>
     <servlet-name>root</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/main</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>console</servlet-name>
-    <url-pattern>/console</url-pattern>
+    <url-pattern>/console/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>script</servlet-name>
@@ -85,11 +85,10 @@
 		</jsp-property-group>
 	</jsp-config>
 	
-<!-- 	
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>main</welcome-file>
   </welcome-file-list>
-    
+<!-- 	    
 	<servlet>
 	  <servlet-name>dwr</servlet-name>
 	  <servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>
