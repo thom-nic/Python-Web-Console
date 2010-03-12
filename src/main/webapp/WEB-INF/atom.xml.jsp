@@ -25,11 +25,9 @@
             <div xmlns="http://www.w3.org/1999/xhtml">
             		<pre><c:out value='${script.source}' /></pre>
            			<h4>Tags:</h4>
-            		<p>
-       			     	<c:forEach var='tag' items='${script.tags}'>
-     							<a href='${baseURL}/tag/${tag}'><c:out value='${tag}' /></a> &nbsp;
-     							</c:forEach>
-            		</p>
+            		<p><c:forEach var='tag' items='${script.tags}'>
+     							<a href='${baseURL}/tag/${tag}'><c:out value='${tag}' /></a> &#160;&#160;|&#160;&#160;
+     						</c:forEach></p>
                 <p><a href="${baseURL}/script/${script.permalink}#comments">Comments &#8230;</a></p>
             </div>
         </content>
