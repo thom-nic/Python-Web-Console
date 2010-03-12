@@ -37,7 +37,7 @@ textarea, input[type=text] {
   color:#300;
 }
 
-#moreItems, #footer {
+#moreItems, #footer, #comments {
 	margin-top: 8px;
 	clear: both
 }
@@ -51,6 +51,11 @@ textarea, input[type=text] {
 }
 #recentScripts { width: 500px }
 #tagCloud, #otherLinks { margin-left: 10px }
+
+#source { 
+  width: 600px;
+  float: left
+}
 
 #shareDialog .bd div { margin: 2px 0 }
 #shareDialog .bd label {  }
