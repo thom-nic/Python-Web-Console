@@ -23,6 +23,9 @@
   	<debug>true</debug>
   	<yui_version>2.8.0r4</yui_version>
   	<baseURL>http://pythonwebconsole.appspot.com</baseURL>
+    <!-- Stored in profiles.xml
+    <recaptchaPublicKey></recaptchaPublicKey>
+    <recaptchaPrivateKey></recaptchaPrivateKey> -->
   </properties>
   
   <dependencies>
@@ -125,6 +128,11 @@
         <type>jar</type>
         <scope>runtime</scope>
     </dependency>
+		<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>1.4</version>
+		</dependency>
 		<dependency>
 	    <groupId>org.slf4j</groupId>
 	    <artifactId>slf4j-jdk14</artifactId>

@@ -27,6 +27,10 @@
 	    <param-name>baseURL</param-name>
 	    <param-value>${baseURL}</param-value>
 	  </init-param>
+	  <init-param>
+	    <param-name>recaptchaPublicKey</param-name>
+	    <param-value>${recaptchaPublicKey}</param-value>
+	  </init-param>
 	  <load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
@@ -36,6 +40,14 @@
 	<servlet>
 	  <servlet-name>script</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.ScriptServlet</servlet-class>
+	  <init-param>
+	    <param-name>recaptchaPublicKey</param-name>
+	    <param-value>${recaptchaPublicKey}</param-value>
+	  </init-param>
+	  <init-param>
+	    <param-name>recaptchaPrivateKey</param-name>
+	    <param-value>${recaptchaPrivateKey}</param-value>
+	  </init-param>
   </servlet>
 	<servlet>
 	  <servlet-name>tag</servlet-name>

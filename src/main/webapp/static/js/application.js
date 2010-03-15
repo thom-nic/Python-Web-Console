@@ -91,6 +91,12 @@ app.shareDialog = new YAHOO.widget.Dialog( "shareDialog", {
 	  buttons: [ { text: "Share!", handler: app.handleShareSubmit, isDefault:true },
 	             { text: "Cancel", handler: function () { this.cancel(); } } ]
 	});
+
+app.shareDialog.beforeShowEvent.subscribe( function(dlg,evt) {
+	  if ( typeof( Recaptcha ) == 'undefined' ) return; // only loaded if not debug
+	  Recaptcha.create( $('recaptcha_pub_key').innerHTML, 
+	    'recaptcha_container', { theme: "white" } );
+	});
 	
 app.shareDialog.validate = function () {
 	  var data = this.getData();

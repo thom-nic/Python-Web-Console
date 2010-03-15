@@ -89,6 +89,8 @@
 		      		<input type='text' name='tags' id='tags'></input>
 	      		</div>
 	      		<input type='hidden' name='source' class='source'></input>
+            <span id='recaptcha_pub_key' style='display:none'>${recaptchaPublicKey}</span>
+            <div id='recaptcha_container'></div>
 	      	</form>
       	</div>
       </div>
@@ -112,6 +114,7 @@
       <script type="text/javascript" src="/static/js/ojay/js-class-min.js"></script>
       <script type="text/javascript" src="/static/js/ojay/core-min.js"></script>
 			<script type="text/javascript" src="/static/js/ojay/pkg/forms-min.js"></script>
+			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
 			</c:otherwise>
       </c:choose>
       <script type="text/javascript" src="/static/js/application.js"></script>

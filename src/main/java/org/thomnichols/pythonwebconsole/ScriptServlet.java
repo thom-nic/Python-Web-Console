@@ -1,6 +1,11 @@
 package org.thomnichols.pythonwebconsole;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -9,15 +14,19 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Script;
 import org.thomnichols.pythonwebconsole.model.Tag;
+
+import com.google.appengine.api.urlfetch.HTTPRequest;
 
 /**
  * This servlet handles sharing and retrieving saved scripts. 
@@ -28,11 +37,15 @@ public class ScriptServlet extends HttpServlet {
 	private static final long serialVersionUID = -2788426290753239213L;
 	final Logger log = LoggerFactory.getLogger( getClass() );
 
-	private PersistenceManagerFactory pmf; 
+	private PersistenceManagerFactory pmf;
+	private String recapPublicKey;
+	private String recapPrivateKey;
 	
 	@Override
 	public void init() throws ServletException {
 		this.pmf = (PersistenceManagerFactory)super.getServletContext().getAttribute( "persistence" );
+		this.recapPrivateKey = super.getInitParameter( "recaptchaPublicKey" );
+		this.recapPrivateKey = super.getInitParameter( "recaptchaPrivateKey" );
 	}
 	
 	@Override
@@ -64,7 +77,7 @@ public class ScriptServlet extends HttpServlet {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
         try {
-        	// TODO validate input
+        	this.validateCaptcha( req );
         	String author = validateParam( req, "author" );
         	String source = validateParam( req, "source" );
         	String title = validateParam( req, "title" );
@@ -121,6 +134,37 @@ public class ScriptServlet extends HttpServlet {
         	}
         	pm.close();
         }
+	}
+	
+	protected void validateCaptcha( HttpServletRequest req ) throws ValidationException {
+		try {
+			URLConnection recaptcha = new URL( "http://api-verify.recaptcha.net/verify" )
+				.openConnection();
+			recaptcha.setDoOutput( true );
+			try {
+				String challengeParam = URLEncoder.encode( validateParam( req,  
+						"recaptcha_challenge_field" ), "utf-8" );
+				String responseParam = URLEncoder.encode( validateParam( req, 
+					"recaptcha_response_field" ), "utf-8" );
+				StringBuffer post = new StringBuffer();
+				post.append( "privatekey=" ).append( this.recapPrivateKey ) 
+						.append( "&remoteip=" ).append( req.getRemoteAddr() )
+						.append( "&challenge=" ).append( challengeParam )
+						.append( "&response=" ).append( responseParam );
+				IOUtils.write( post.toString(), recaptcha.getOutputStream(), "utf-8" );
+				List<String> response = IOUtils.readLines( recaptcha.getInputStream(), "utf-8" );
+				if ( ! "true".equalsIgnoreCase( response.get(0) ) ) 
+					throw new ValidationException( "Invalid captcha response: "
+							+ response.get(1) );
+			}
+			finally {
+				recaptcha.getOutputStream().close();
+				recaptcha.getInputStream().close();
+			}
+		}
+		catch ( IOException ex ) {
+			throw new ValidationException( ex );
+		}
 	}
 	
 	protected String validateParam( HttpServletRequest req, String paramName ) 
