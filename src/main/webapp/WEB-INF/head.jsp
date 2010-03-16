@@ -1,6 +1,7 @@
 <%@ page isELIgnored='false' %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="${contextPath}/static/img/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" />
         <c:choose>
         <c:when test='${debug}'>
         <link rel="stylesheet" type="text/css" href="/static/hosted/yui/reset-fonts-grids.css" />
