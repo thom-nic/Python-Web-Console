@@ -40,12 +40,14 @@ public class ScriptServlet extends HttpServlet {
 	private PersistenceManagerFactory pmf;
 	private String recapPublicKey;
 	private String recapPrivateKey;
+	private boolean debug = false;
 	
 	@Override
 	public void init() throws ServletException {
 		this.pmf = (PersistenceManagerFactory)super.getServletContext().getAttribute( "persistence" );
 		this.recapPrivateKey = super.getInitParameter( "recaptchaPublicKey" );
 		this.recapPrivateKey = super.getInitParameter( "recaptchaPrivateKey" );
+		this.debug = (Boolean)getServletContext().getAttribute( "debug" );
 	}
 	
 	@Override
@@ -77,11 +79,11 @@ public class ScriptServlet extends HttpServlet {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
         try {
-        	this.validateCaptcha( req );
+        	if ( ! debug ) this.validateCaptcha( req );
         	String author = validateParam( req, "author" );
         	String source = validateParam( req, "source" );
         	String title = validateParam( req, "title" );
-        	
+
         	String tagString = req.getParameter( "tags" );
         	if ( tagString == null ) tagString = "";
         	String[] tags = tagString.split( "[\\s,]+" );
@@ -94,8 +96,8 @@ public class ScriptServlet extends HttpServlet {
         	while ( ((List<?>)query.execute( script.getPermalink() )).size() > 0 )
         		script.generateNewPermalink();
         	log.debug( "Saving new script with permalink: {}", script.getPermalink() );
-            pm.makePersistent( script );
-            
+        	pm.makePersistent( script );
+
             tx.commit();
 
             // update tag count:
@@ -109,7 +111,7 @@ public class ScriptServlet extends HttpServlet {
 	    			pm.makePersistent(tag);
 	    		}
             }
-            
+
             // Send a 201:Created response for Ajax requests.
         	if ( "XMLHttpRequest".equals(req.getHeader("X-Requested-With")) ) {
         		resp.setStatus(201);
@@ -117,7 +119,7 @@ public class ScriptServlet extends HttpServlet {
         				+ "/script/" + script.getPermalink() );
         		return;
         	}
-        		
+	
             resp.sendRedirect( "/script/"+script.getPermalink() );
         }
         catch ( ValidationException ex ) {
@@ -135,7 +137,7 @@ public class ScriptServlet extends HttpServlet {
         	pm.close();
         }
 	}
-	
+
 	protected void validateCaptcha( HttpServletRequest req ) throws ValidationException {
 		try {
 			URLConnection recaptcha = new URL( "http://api-verify.recaptcha.net/verify" )
