@@ -19,7 +19,9 @@ import com.google.apphosting.api.ApiProxy.Environment;
 
 public class ConsoleService {
 	
-	static final Logger log = LoggerFactory.getLogger( ConsoleService.class ); 
+	final Logger log = LoggerFactory.getLogger( getClass() ); 
+	
+	static final String libZipLocation = "WEB-INF/Lib.zip";
 	
 	static final String[] RESTRICTED_PACKAGES = { 
 			"com.google", "org.datanucleus", 
@@ -29,10 +31,10 @@ public class ConsoleService {
 		Properties pre = new Properties();
 		//pre.setProperty( PySystemState.PYTHON_CONSOLE_ENCODING, null );
 		System.getProperties().remove("file.encoding");
-		PyConsoleClassLoader classloader = new PyConsoleClassLoader( 
+		/*PyConsoleClassLoader classloader = new PyConsoleClassLoader( 
 				new URL[0], Thread.currentThread().getContextClassLoader() );
 		PySystemState.initialize(pre,null,new String[]{""}, classloader ); 
-	}
+*/	}
 	
 	/**
 	 * Evaluate the python source and return the output.
@@ -42,18 +44,18 @@ public class ConsoleService {
 	public String exec( String source ) {
 		log.debug( "Executing python code: {}", source );
 		
-/*		PyConsoleClassLoader classloader = new PyConsoleClassLoader( 
-				new URL[0], Thread.currentThread().getContextClassLoader() );
-		ScriptEngine engine = new ScriptEngineManager(classloader).getEngineByName( "python" );
-		engine.eval( source );
-*/
 		Environment env = ApiProxy.getCurrentEnvironment();
 		try {
 			ApiProxy.clearEnvironmentForCurrentThread();
-			PythonInterpreter interpreter = new PythonInterpreter( null, new PySystemState() );
+			PySystemState state = new PySystemState();
+			state.setClassLoader( new PyConsoleClassLoader( 
+				new URL[0], Thread.currentThread().getContextClassLoader() ) );
+			PythonInterpreter interpreter = new PythonInterpreter( null, state );
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			interpreter.setOut( out );
 			interpreter.setErr( out );
+			interpreter.exec( "import sys\nsys.path.insert(0, '" + 
+					libZipLocation + "')\n" );
 			interpreter.exec( source );
 //			log.debug( "Output: {}", out );
 			return out.toString();
@@ -64,6 +66,7 @@ public class ConsoleService {
 	}
 	
 	static class PyConsoleClassLoader extends URLClassLoader {
+		final Logger log = LoggerFactory.getLogger( getClass() ); 
 		public PyConsoleClassLoader( URL[] urls ) {
 			super( urls );
 		}
@@ -80,6 +83,7 @@ public class ConsoleService {
 		@Override
 		protected Class<?> findClass( String name )
 				throws ClassNotFoundException {
+			log.debug( "Console loading class: {}", name );
 			// TODO use whitelist instead of blacklist
 			for ( String packageName : RESTRICTED_PACKAGES )
 				if ( name.startsWith( packageName ) ) {
