@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /console/
+Allow: /
+Sitemap: http://pythonwebconsole.appspot.com/sitemap.xml
