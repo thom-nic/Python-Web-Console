@@ -8,6 +8,7 @@
         <meta name="google-site-verification" content="" />
         <meta name="y_key" content="" />
         <meta name="msvalidate.01" content="" />
+        <meta name="description" content="Run and share Python scripts in an online console" />
         <link rel="alternate" type="application/atom+xml" title="Python Web Console RSS Feed" 
               href="${contextPath}/atom.xml" />
         <jsp:include page='/WEB-INF/head.jsp' />
@@ -26,8 +27,8 @@
 	          	<c:otherwise># Script text here</c:otherwise>
           </c:choose></textarea>
           <div class='actions'>Actions:
-            <input type='submit' id='runBtn' value='Run' />
-            <input type='submit' id='shareBtn' value='Share' />
+            <input type='submit' id='runBtn' value='run' />
+            <input type='submit' id='shareBtn' value='share' />
             <span class='note'>You can execute the script by pressing [Ctrl-Enter]</span>
           </div>
         </form>
@@ -42,6 +43,7 @@
       <div id='moreItems'>
 	      <div id='recentScripts'>
 	      	<h3>Recent Items</h3>
+	      	<a class='feed' href="${contextPath}/atom.xml" title='Feed'>Feed</a>
 	      	<ul>
 		      <c:forEach items='${recentScripts}' var='recentScript'>
 		      	<li>
@@ -62,11 +64,15 @@
 
 	      <div id='otherLinks'>
 	      	<h3>Related Links</h3>
-	      	<a href='http://blog.thomnichols.org'>Thom Nichols</a>
-	      	<a href='http://jython.org'>Jython</a>
-	      	<a href='http://code.google.com/appengine/'>
-	      		<img id="poweredby" alt="Powered by Google App Engine" 
-            src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" /></a>
+	      	<ul>
+		      	<li><a href='http://blog.thomnichols.org'>Thom Nichols</a></li>
+	      		<li><a href='http://jython.org'>Jython</a></li>
+	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
+	      		<li><a href='http://code.google.com/appengine/'>
+		      		<img id="poweredby" alt="Powered by Google App Engine" 
+	            src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" /></a>
+	            </li>
+          </ul>
 	      </div>      
       </div>
       
@@ -81,11 +87,11 @@
 		      		<input type='text' name='author' id='author'></input>
 	      		</div>
 	      		<div>
-		      		<label for='author'>Script Title:</label>
+		      		<label for='title'>Script Title:</label>
 		      		<input type='text' name='title' id='title'></input>
 	      		</div>
 	      		<div>
-		      		<label for='author'>Tags:</label>
+		      		<label for='tags'>Tags:</label>
 		      		<input type='text' name='tags' id='tags'></input>
 	      		</div>
 	      		<input type='hidden' name='source' class='source'></input>
@@ -117,6 +123,7 @@
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
 			</c:otherwise>
       </c:choose>
-      <script type="text/javascript" src="/static/js/application.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
     </body>
 </html>
