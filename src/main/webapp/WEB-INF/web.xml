@@ -61,6 +61,14 @@
 	  <servlet-name>sitemap</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.SitemapServlet</servlet-class>
   </servlet>
+	<servlet>
+	  <servlet-name>report</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.ReportServlet</servlet-class>
+	  <init-param>
+	    <param-name>adminEmail</param-name>
+	    <param-value>${adminEmail}</param-value>
+	  </init-param>
+  </servlet>
   
 	<!-- TODO catch-all that redirects to 404 page. -->
 	<servlet-mapping>
@@ -86,6 +94,10 @@
 	<servlet-mapping>
     <servlet-name>sitemap</servlet-name>
     <url-pattern>/sitemap.xml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>report</servlet-name>
+    <url-pattern>/report</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>

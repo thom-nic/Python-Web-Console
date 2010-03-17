@@ -1,20 +1,77 @@
 body {
   text-align: left;
+  font:12px arial,helvetica,verdana,sans-serif;
 }
 
 h1,h2,h3 { margin:0 }
 
-h1 { text-align: right; }
+h1, h3 { text-align: right; }
 
 textarea, input[type=text] {
 	background-color: #ddd;
 	border: solid 1px #ccc
 }
 
+input[type=submit], button {
+  background-color:#555;
+  border:2px solid #333;
+  color:#ffc;
+  font-variant:small-caps;
+  font-weight:bold;
+  margin:0 9px;
+  padding:1px 7px;
+}
+
+a { color:#061; }
+a:visited { color:#394; }
+a img { border: none }
+
+.feed {
+  background-image: url(img/atom.gif);
+  color: transparent !important;
+  width: 80px;
+  height: 20px;
+  float: right;
+  margin: 2px
+}
+
+#wrapper {
+  margin:10px auto;
+  width:930px;
+}
+
+#header {
+  border-bottom:2px solid #999;
+  margin-bottom:5px;
+  padding-bottom:5px;
+}
+
+#leftCol {
+  width: 600px;
+  float: left
+}
+
+#rightCol { 
+  width: 320px;
+  float: left
+}
+
+#rightCol .controls { 
+  margin: 2px 0 10px 10px;
+}
+
 #console, #output {
   width: 48%;
   float: left    
 }
+/*
+#console h2, #output h2 {
+  color:#ffe;
+  left:44%;
+  margin:5px;
+  position:absolute;
+  z-index:2;
+} */
 #console { margin-right:20px; }
 
 #console textarea, #output textarea {
@@ -29,7 +86,14 @@ textarea, input[type=text] {
 	padding: 3px
 }
 
-#console .actions { margin: 8px 0 }
+#console .actions, #footer {
+  margin: 8px 0; 
+  color:#555555;
+  font-size:smaller;
+  font-weight:bold;
+}
+#console .actions input { font-size:larger; } 
+
 #console .actions .note { font-style: italic }
 
 #output textarea.error { 
@@ -38,7 +102,6 @@ textarea, input[type=text] {
 }
 
 #moreItems, #footer, #comments {
-	margin-top: 8px;
 	clear: both
 }
 
@@ -49,19 +112,24 @@ textarea, input[type=text] {
   float: left;
 	width: 300px
 }
+
+#otherLinks a { display:block }
+
 #recentScripts { width: 500px }
 #tagCloud, #otherLinks { margin-left: 10px }
-
-#source { 
-  width: 600px;
-  float: left
-}
 
 #shareDialog .bd div { margin: 2px 0 }
 #shareDialog .bd label {  }
 #shareDialog .bd input {
 	float: right; 
 	margin-left: 20px
+}
+
+#reportDialog { width: 415px }
+
+#reportDialog textarea {
+  height:133px;
+  width:100%;
 }
 
 #header .busy {
@@ -71,3 +139,5 @@ textarea, input[type=text] {
   float: left; 
   position: absolute
 }
+
+.hidden { display:none }
