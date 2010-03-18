@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Properties;
+import java.util.concurrent.Future;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -15,7 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.apphosting.api.ApiProxy;
+import com.google.apphosting.api.ApiProxy.ApiConfig;
+import com.google.apphosting.api.ApiProxy.ApiProxyException;
 import com.google.apphosting.api.ApiProxy.Environment;
+import com.google.apphosting.api.ApiProxy.LogRecord;
 
 public class ConsoleService {
 	
@@ -26,6 +30,25 @@ public class ConsoleService {
 	static final String[] RESTRICTED_PACKAGES = { 
 			"com.google", "org.datanucleus", 
 			"org.springframework" };
+	
+	static final ApiProxy.Delegate PROXY_DELEGATE = new ApiProxy.Delegate<Environment>() {
+		@Override
+		public void log( Environment arg0, LogRecord arg1 ) {
+			// TODO could redirect logging here if desired.
+		}
+
+		@Override
+		public Future<byte[]> makeAsyncCall( Environment arg0,
+				String arg1, String arg2, byte[] arg3, ApiConfig arg4 ) {
+			return null;
+		}
+
+		@Override
+		public byte[] makeSyncCall( Environment arg0, String arg1,
+				String arg2, byte[] arg3 ) throws ApiProxyException {
+			return null;
+		}
+	};
 	
 	static { 
 		Properties pre = new Properties();
@@ -45,8 +68,10 @@ public class ConsoleService {
 		log.debug( "Executing python code: {}", source );
 		
 		Environment env = ApiProxy.getCurrentEnvironment();
+		ApiProxy.Delegate<?> originalDelegate = ApiProxy.getDelegate();
 		try {
 			ApiProxy.clearEnvironmentForCurrentThread();
+			ApiProxy.setDelegate( PROXY_DELEGATE );
 			PySystemState state = new PySystemState();
 			state.setClassLoader( new PyConsoleClassLoader( 
 				new URL[0], Thread.currentThread().getContextClassLoader() ) );
@@ -55,12 +80,12 @@ public class ConsoleService {
 			interpreter.setOut( out );
 			interpreter.setErr( out );
 			interpreter.exec( "import sys\nsys.path.insert(0, '" + 
-					libZipLocation + "')\n" );
-			interpreter.exec( source );
+					libZipLocation + "')\n" + source );
 //			log.debug( "Output: {}", out );
 			return out.toString();
 		}
 		finally {
+			ApiProxy.setDelegate( originalDelegate );
 			ApiProxy.setEnvironmentForCurrentThread(env);
 		}
 	}
