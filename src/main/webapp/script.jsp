@@ -1,6 +1,6 @@
-<%@ page isELIgnored='false' %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page isELIgnored='false'  
+%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
@@ -22,8 +22,8 @@
 			     	<pre class='brush: python'><c:out value='${script.source}' escapeXml='true'/></pre>
 		     	</div>
 
-					<div id='comments'>
-						<h3>Comments</h3>
+					<div id='comments' style='display:none'>
+						<h2>Comments</h2>
 						(comments go here)
 					</div>
 	     	</div>
