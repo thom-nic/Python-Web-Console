@@ -11,7 +11,8 @@ app.evalScript = function(btn,evt) {
 				console.debug( "response", resp );
 		  	$$('#header .busy').hide();
 				var data = resp.responseText.parseJSON();
-				app.outputText.setContent(data.output).setClass(data.status);
+				app.outputText.setClass(data.status);
+				app.outputText.node.value = data.output;
 			}, 
 			failure: function( resp ) {
 		  	$$('#header .busy').hide();
@@ -108,11 +109,12 @@ app.shareDialog.validate = function () {
 	
 Ojay.onDOMReady( function() {
 	$$('#runBtn').on('click',app.evalScript);
+	$$('textarea').every(function(ta) { ta.set({wrap:'off',spellcheck:'false'}); });
 	app.consoleText = $$('#console textarea');
 	app.consoleText.on('keypress',app.consoleKeyHandler);
-	app.consoleText.setContent( Util.getText( app.consoleText.node ).trim() );
+	app.consoleText.node.value = app.consoleText.node.value.trim();
 	app.outputText = $$('#output textarea');
-	app.outputText.setContent( Util.getText( app.outputText.node ).trim() );
+	app.outputText.node.value = app.outputText.node.value.trim();
 	
 	app.shareDialog.render();
 	$$('#shareBtn').on('click',function(btn,evt) {
