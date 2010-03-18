@@ -33,7 +33,7 @@ app.reportDialog = new YAHOO.widget.Dialog( "reportDialog", {
 	
 app.reportDialog.validate = function () {
 	  var data = this.getData();
-	  if (data.content.trim() == "") {
+	  if ( ! data.content || data.content.trim() == "") {
 	      alert("Please enter something!");
 	      return false;
 	  }
