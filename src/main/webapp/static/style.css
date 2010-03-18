@@ -1,24 +1,28 @@
 body {
   text-align: left;
   font:12px arial,helvetica,verdana,sans-serif;
+  color: #444
 }
 
-h1,h2,h3 { margin:0 }
+h1,h2,h3 { margin:0; color: #111 }
 
 h1, h3 { text-align: right; }
 
+ul li { list-style-image: url(img/li.gif); }
+
 textarea, input[type=text] {
 	background-color: #ddd;
-	border: solid 1px #ccc
+	border: solid 1px #ccc;
+	height: 20px;
 }
 
 input[type=submit], button {
   background-color:#555;
   border:2px solid #333;
   color:#ffc;
-  font-variant:small-caps;
+  text-transform:capitalize;
   font-weight:bold;
-  margin:0 9px;
+  margin: 0 9px;
   padding:1px 7px;
 }
 
@@ -110,19 +114,21 @@ a img { border: none }
 	background-color: #ddd;
 	border: solid 2px #ccc;
   float: left;
-	width: 300px
+	width: 300px;
+	margin-bottom: 5px
 }
 
 #otherLinks a { display:block }
 
 #recentScripts { width: 500px }
 #tagCloud, #otherLinks { margin-left: 10px }
+#tagCloud span { white-space: nowrap; }
 
-#shareDialog .bd div { margin: 2px 0 }
-#shareDialog .bd label {  }
+#shareDialog { width: 350px }
 #shareDialog .bd input {
 	float: right; 
-	margin-left: 20px
+	margin: 0 0 0 20px;
+	width: 220px;
 }
 
 #reportDialog { width: 415px }
@@ -138,6 +144,11 @@ a img { border: none }
   height: 32px;
   float: left; 
   position: absolute
+}
+
+.bd .row {
+  height:22px;
+  margin:5px 0;  
 }
 
 .hidden { display:none }

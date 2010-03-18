@@ -89,8 +89,19 @@ public class RootServlet extends HttpServlet {
 		Query q = pm.newQuery( Tag.class, "count > 0" );
 		q.setOrdering("count desc");
 		q.setRange(0,15);
+		List<Tag> tags = (List<Tag>) q.execute();
+		if ( tags.size() > 0 ) {
+			long max = tags.get(0).getCount();
+			float min = tags.get( tags.size()-1 ).getCount();
+			for ( Tag t : tags ) {
+				// if all tags have same count, avoid divide-by-zero
+		        // Create a float scale between 1 and 1.8
+				double scale = ( max-min == 0 ? 1 :  (t.getCount()-min)/(max-min)*.8+1 );
+				t.setScale( String.format("%.1fem",scale) );
+			}
+		}
 		// reorder tags alphabetically.
-		return new TreeSet<Tag>( (List<Tag>) q.execute() );
+		return new TreeSet<Tag>( tags );
 	}
 	
 	// TODO memcache!

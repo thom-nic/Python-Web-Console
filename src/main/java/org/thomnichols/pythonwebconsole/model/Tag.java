@@ -8,6 +8,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Tag implements Comparable<Tag> {
     @PrimaryKey private String name;
     @Persistent private long count;
+    transient String scale;
 
     public Tag( String name, long count ) {
 		this.name = name;
@@ -17,7 +18,9 @@ public class Tag implements Comparable<Tag> {
     public String getName() { return this.name; }
     public long getCount() { return this.count; }
     public void setCount( long count ) { this.count = count; }
-
+    public String getScale() { return this.scale; }
+    public void setScale( String scale ) { this.scale = scale; };
+    
 	@Override
 	public int compareTo(Tag o) {
 		String other = o == null ? "" : o.getName();

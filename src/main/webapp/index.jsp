@@ -1,6 +1,6 @@
-<%@ page isELIgnored='false' %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page isELIgnored='false' 
+%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
@@ -22,7 +22,7 @@
       <div id='console'>
       	<h2>Source</h2>
         <form id='consoleForm' action='${contextPath}/console/' method='post'>
-          <textarea name='src'><c:choose>
+          <textarea name='src' rows='50' cols='82'><c:choose>
           	<c:when test='${source!=null}'><c:out value='${source}' escapeXml='true'/></c:when>
 	          	<c:otherwise># Script text here</c:otherwise>
           </c:choose></textarea>
@@ -35,7 +35,7 @@
       </div>
       <div id='output'>
       	<h2>Output</h2>
-        <textarea class='${status}' readonly='true'><c:if test='${output!=null}'><c:out value='${output}' escapeXml='true'/></c:if>
+        <textarea class='${status}' readonly='readonly' rows='50' cols='82'><c:if test='${output!=null}'><c:out value='${output}' escapeXml='true'/></c:if>
         </textarea>
       </div>
       </div>
@@ -43,7 +43,7 @@
       <div id='moreItems'>
 	      <div id='recentScripts'>
 	      	<h3>Recent Items</h3>
-	      	<a class='feed' href="${contextPath}/atom.xml" title='Feed'>Feed</a>
+	      	<a class='feed' href="${contextPath}/atom.xml" title='Atom Feed'>&nbsp;</a>
 	      	<ul>
 		      <c:forEach items='${recentScripts}' var='recentScript'>
 		      	<li>
@@ -52,13 +52,13 @@
 		      		<span class='date'><c:out value='${recentScript.created}'/></span>
 		      	</li> 
 	      	</c:forEach>
-	      	<ul>
+	      	</ul>
 	      </div>
 	      
 	      <div id='tagCloud'>
 	      	<h3>Popular Tags</h3>
 		      <c:forEach items='${tagCloud}' var='tag'>
-		      	<span><a href='${contextPath}/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
+		      	<span style='font-size:${tag.scale}'><a href='${contextPath}/tag/${tag.name}'><c:out value='${tag.name}'/></a> (${tag.count})</span> &nbsp;
 					</c:forEach>
 	      </div>
 
@@ -68,11 +68,12 @@
 		      	<li><a href='http://blog.thomnichols.org'>Thom Nichols</a></li>
 	      		<li><a href='http://jython.org'>Jython</a></li>
 	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
-	      		<li><a href='http://code.google.com/appengine/'>
+          </ul>
+					<div>
+						<a href='http://code.google.com/appengine/'>
 		      		<img id="poweredby" alt="Powered by Google App Engine" 
 	            src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" /></a>
-	            </li>
-          </ul>
+	        </div>
 	      </div>      
       </div>
       
@@ -82,17 +83,17 @@
  		  	<div class="hd">Share This Script!</div>
     		<div class="bd">
 	       	<form id='shareForm' action='${contextPath}/script/' method='post'>
-	      		<div>
-		      		<label for='author'>Your name:</label>
+	      		<div class='row'>
 		      		<input type='text' name='author' id='author'></input>
+		      		<label for='author'>Your name:</label>
 	      		</div>
-	      		<div>
-		      		<label for='title'>Script Title:</label>
+	      		<div class='row'>
 		      		<input type='text' name='title' id='title'></input>
+		      		<label for='title'>Script Title:</label>
 	      		</div>
-	      		<div>
-		      		<label for='tags'>Tags:</label>
+	      		<div class='row'>
 		      		<input type='text' name='tags' id='tags'></input>
+		      		<label for='tags'>Tags:</label>
 	      		</div>
 	      		<input type='hidden' name='source' class='source'></input>
             <span id='recaptcha_pub_key' style='display:none'>${recaptchaPublicKey}</span>
