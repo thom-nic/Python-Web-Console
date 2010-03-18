@@ -65,7 +65,8 @@ public class ConsoleServlet extends HttpServlet {
 		
 		// TODO proper escaping -- unicode & character codes?
 		result = result.replaceAll("<","&lt;").replaceAll( ">","&gt;").
-			replaceAll("\\\\","\\\\\\\\").replaceAll( "\"", "\\\\\\\"" );
+			replaceAll("\\\\","\\\\\\\\").replaceAll( "\"", "\\\\\\\"" )
+			.replaceAll( "[\\r\\n]+", "\\\\n" );
 		
 		resp.setContentType( "application/json" );
 		resp.getWriter().append( "{\"status\":\"" ).append(status)
