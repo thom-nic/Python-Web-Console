@@ -65,7 +65,7 @@
 		      		<textarea name='content' id='content'></textarea>
 	      		</div>
 	      		<input type='hidden' name='scriptLink' id='scriptLink' 
-	      			value="${baseURL}/console/${script.permalink}"></input>
+	      			value="${baseURL}/script/${script.permalink}"></input>
 	      		<div class='hidden'><input type='text' name='junk'></input></div>
 	      	</form>
       	</div>
