@@ -14,6 +14,7 @@ textarea, input[type=text] {
 	background-color: #ddd;
 	border: solid 1px #ccc;
 	height: 20px;
+  border-radius: 4px; -moz-border-radius: 4px;
 }
 
 input[type=submit], button {
@@ -24,6 +25,7 @@ input[type=submit], button {
   font-weight:bold;
   margin: 0 9px;
   padding:1px 7px;
+  border-radius: 4px; -moz-border-radius: 4px;
 }
 
 a { color:#061; }
@@ -33,6 +35,7 @@ a img { border: none }
 .feed {
   background-image: url(img/atom.gif);
   color: transparent !important;
+  text-decoration: none;
   width: 80px;
   height: 20px;
   float: right;
@@ -85,7 +88,6 @@ a img { border: none }
   width:100%;
   background-color:#222;
   border: solid 2px #666;
-  border-radius: 4px; -moz-border-radius: 4px;
 	color: #0d1;
 	padding: 3px
 }
