@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class Script {
-	static final DateFormat rfcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:m:ss'Z'");
+	static final DateFormat rfcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
     @PrimaryKey private String permalink;
     @Persistent private String author;
     @Persistent private Text source;
@@ -20,7 +20,8 @@ public class Script {
     @Persistent private String[] tags;
     @Persistent private String title;
     
-    private String rfcFormatDate = null;
+    //TODO this seems to be persisted after it's generated
+    private transient String rfcFormatDate = null;
 
     public Script(String author, String source, String title, String[] tags ) {
         this.author = author;
@@ -48,10 +49,9 @@ public class Script {
     public String getPermalink() { return this.permalink; }
     public String getCreatedRFC() {
     	if ( rfcFormatDate == null ) {
-    		rfcFormatDate = rfcFormat.format(this.created);
-//    		String dt = rfcFormat.format(this.created);
-//    		rfcFormatDate = dt.substring( 0, dt.length()-2 ) + 
-//    			":" + dt.substring( dt.length() -2 );
+    		String dt = rfcFormat.format(this.created);
+    		rfcFormatDate = dt.substring( 0, dt.length()-2 ) + 
+    			":" + dt.substring( dt.length() -2 );
     	}
     	return rfcFormatDate;
     }
