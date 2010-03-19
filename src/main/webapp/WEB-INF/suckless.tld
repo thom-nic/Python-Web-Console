@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+
+  <description>Various attempts at making JSP suck less</description>
+  <display-name>Suck Less</display-name>
+  <tlib-version>0.1</tlib-version>
+  <short-name>s</short-name>
+  <uri>http://thomnichols.org/jsp/suckless</uri>
+  
+  <function>
+  	<name>esc</name>
+  	<display-name>Escape</display-name>
+  	<description>Replacement for escaping text a la c:out but as an EL 
+  		function.</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String esc( java.lang.String )</function-signature>
+  </function>
+
+  <function>
+  	<name>toHTML</name>
+  	<display-name>To HTML</display-name>
+  	<description>Take some plain text and format it as HTML.  Sort of the 
+  	 opposite of 'Escape'</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String toHTML( java.lang.String )</function-signature>
+  </function>
+  
+  <function>
+  	<name>shortDate</name>
+  	<display-name>Short Date</display-name>
+  	<description>Take a date and print its short format</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String shortDate( java.util.Date )</function-signature>
+  </function>
+  
+  <function>
+  	<name>longDate</name>
+  	<display-name>Long Date</display-name>
+  	<description>Print a date in a relatively sane format</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String longDate( java.util.Date )</function-signature>
+  </function>
+  
+</taglib>
