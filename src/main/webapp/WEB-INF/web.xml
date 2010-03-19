@@ -31,6 +31,10 @@
 	    <param-name>recaptchaPublicKey</param-name>
 	    <param-value>${recaptchaPublicKey}</param-value>
 	  </init-param>
+	  <init-param>
+	    <param-name>recaptchaPrivateKey</param-name>
+	    <param-value>${recaptchaPrivateKey}</param-value>
+	  </init-param>
 	  <load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
@@ -40,14 +44,10 @@
 	<servlet>
 	  <servlet-name>script</servlet-name>
 	  <servlet-class>org.thomnichols.pythonwebconsole.ScriptServlet</servlet-class>
-	  <init-param>
-	    <param-name>recaptchaPublicKey</param-name>
-	    <param-value>${recaptchaPublicKey}</param-value>
-	  </init-param>
-	  <init-param>
-	    <param-name>recaptchaPrivateKey</param-name>
-	    <param-value>${recaptchaPrivateKey}</param-value>
-	  </init-param>
+  </servlet>
+	<servlet>
+	  <servlet-name>comment</servlet-name>
+	  <servlet-class>org.thomnichols.pythonwebconsole.CommentServlet</servlet-class>
   </servlet>
 	<servlet>
 	  <servlet-name>tag</servlet-name>
@@ -84,6 +84,10 @@
     <url-pattern>/script/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+    <servlet-name>comment</servlet-name>
+    <url-pattern>/comment/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
     <servlet-name>tag</servlet-name>
     <url-pattern>/tag/*</url-pattern>
 	</servlet-mapping>
@@ -112,34 +116,16 @@
   <welcome-file-list>
     <welcome-file>main</welcome-file>
   </welcome-file-list>
-<!-- 	    
-	<servlet>
-	  <servlet-name>dwr</servlet-name>
-	  <servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>
-	  <init-param>
-	    <param-name>debug</param-name>
-	    <param-value>${debug}</param-value>
-	  </init-param>
-		<init-param>
-			<param-name>logLevel</param-name>
-			<param-value>WARN</param-value>
-		</init-param> 
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>dwr</servlet-name>
-	    <url-pattern>/dwr/*</url-pattern>
-	</servlet-mapping>
-	
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	<listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/beans.xml</param-value>
-  </context-param>
-   -->
+  
+  <taglib>
+		<taglib-uri>http://thomnichols.org/jsp/suckless</taglib-uri>
+		<taglib-location>/WEB-INF/suckless.tld</taglib-location>
+	</taglib>
+  
+  <!-- 
+  <error-page>
+		<error-code>500</error-code>
+		<location>/error/500.jsp</location>
+	</error-page>
+	-->
 </web-app>
