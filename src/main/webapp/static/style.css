@@ -5,6 +5,7 @@ body {
 }
 
 h1,h2,h3 { margin:0; color: #111 }
+h1.lmenu { float: right }
 
 h1, h3 { text-align: right; }
 
@@ -14,6 +15,7 @@ textarea, input[type=text] {
 	background-color: #ddd;
 	border: solid 1px #ccc;
 	height: 20px;
+	width: 220px;
   border-radius: 4px; -moz-border-radius: 4px;
 }
 
@@ -66,6 +68,7 @@ a img { border: none }
 #rightCol .controls { 
   margin: 2px 0 10px 10px;
 }
+#rightCol .controls a { margin: 0 6px }
 
 #console, #output {
   width: 48%;
@@ -127,18 +130,19 @@ a img { border: none }
 #tagCloud span { white-space: nowrap; }
 
 #shareDialog { width: 350px }
-#shareDialog .bd input {
+.bd .row input {
 	float: right; 
 	margin: 0 0 0 20px;
-	width: 220px;
 }
 
-#reportDialog { width: 415px }
+#reportDialog, #commentDialog { width: 430px }
 
-#reportDialog textarea {
-  height:133px;
+#reportDialog textarea, #commentDialog textarea {
+  height:170px;
   width:100%;
 }
+
+#header .menu a { margin: 6px }
 
 #header .busy {
   background: url("/static/img/spinner.gif") no-repeat scroll 0 0 transparent;
@@ -148,9 +152,23 @@ a img { border: none }
   position: absolute
 }
 
+.comment {
+  background-color:#eee;
+  margin:10px 0;
+  padding:5px 10px;
+}
+
+.comment .hd {
+  margin: 0 0 4px 0;  
+}
+.comment .hd .title { font-weight: bold }
+.comment .hd .sub { float: right; font-size:11px }
+.comment .hd .sub .author { font-weight: bold; margin-right: 8px }
+
 .bd .row {
   height:22px;
   margin:5px 0;  
 }
 
+.first { margin-left: 0 !important } 
 .hidden { display:none }
