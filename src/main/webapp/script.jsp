@@ -139,6 +139,7 @@
 			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
       <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' type='text/javascript'></script>
 			<script src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js' type='text/javascript'></script>
+			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
 			</c:otherwise>
 			</c:choose>
       <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
