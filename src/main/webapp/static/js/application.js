@@ -21,6 +21,12 @@ Util = {
 	
 	getText : function( elem ) {
 		return elem.textContent || elem.innerText || elem.innerHTML;
+	},
+	
+	linkRegex : /(https?:\/\/([\w\d\.\-]+):?\d*\/?[\w\d\.\-\?\/%=&#]*)/g,
+	
+	findLinks : function( text ) {
+		return text.replace( Util.linkRegex, '<a href="$1">[$2]</a>' );
 	}
 };
 

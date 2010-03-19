@@ -96,4 +96,8 @@ Ojay.onDOMReady( function() {
 	app.reportDialog.render();
 	$$('#reportLink').on('click',clickHandler.partial(app.reportDialog));
 	$$('#commentDialog, #reportDialog').removeClass('hidden');
+	$$('#comments .bd').forEach( function(node) { 
+	  node.node.innerHTML= Util.findLinks(node.node.innerHTML) ;
+//	  console.debug(node.node.innerHTML);
+	});
 });
