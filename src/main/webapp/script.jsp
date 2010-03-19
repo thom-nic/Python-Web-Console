@@ -40,7 +40,7 @@
 								</div>
 								<span class='title'>${s:esc(comment.title)}</span>
 							</div>
-							<div class='bd'>${s:toHTML(comment.text)}</div>
+							<div class='bd'>${s:toHTML(s:esc(comment.text))}</div>
 						</div>
 						</c:forEach>
 					</div>
@@ -56,9 +56,9 @@
 		
 		     	<div id='tagCloud'>
 		     		<h3>Tags</h3>
-		     	<c:forEach var='tag' items='${script.tags}'>
+		     		<c:forEach var='tag' items='${script.tags}'>
 		     		<a href='${contextPath}/tag/${tag}'>${s:esc(tag)}</a> &nbsp;
-		     	</c:forEach>
+		     		</c:forEach>
 		     	</div>
 	     	</div>
 	
