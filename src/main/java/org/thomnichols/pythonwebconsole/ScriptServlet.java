@@ -1,32 +1,26 @@
 package org.thomnichols.pythonwebconsole;
 
+import static org.thomnichols.pythonwebconsole.Util.validateCaptcha;
+import static org.thomnichols.pythonwebconsole.Util.validateParam;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thomnichols.pythonwebconsole.model.Comment;
 import org.thomnichols.pythonwebconsole.model.Script;
 import org.thomnichols.pythonwebconsole.model.Tag;
-
-import com.google.appengine.api.urlfetch.HTTPRequest;
 
 /**
  * This servlet handles sharing and retrieving saved scripts. 
@@ -38,15 +32,13 @@ public class ScriptServlet extends HttpServlet {
 	final Logger log = LoggerFactory.getLogger( getClass() );
 
 	private PersistenceManagerFactory pmf;
-	private String recapPublicKey;
 	private String recapPrivateKey;
 	private boolean debug = false;
 	
 	@Override
 	public void init() throws ServletException {
 		this.pmf = (PersistenceManagerFactory)super.getServletContext().getAttribute( "persistence" );
-		this.recapPrivateKey = super.getInitParameter( "recaptchaPublicKey" );
-		this.recapPrivateKey = super.getInitParameter( "recaptchaPrivateKey" );
+		this.recapPrivateKey = (String)getServletContext().getAttribute( "recaptchaPrivateKey" );
 		this.debug = (Boolean)getServletContext().getAttribute( "debug" );
 	}
 	
@@ -63,8 +55,8 @@ public class ScriptServlet extends HttpServlet {
         		return;
         	}
     		// lookup script based on script id/ permalink
-        	Script script = pm.getObjectById( Script.class, permalink );
-        	req.setAttribute( "script", script );
+        	req.setAttribute( "script", pm.getObjectById( Script.class, permalink  ) );
+        	req.setAttribute( "comments", getComments( pm ) );
     		req.getRequestDispatcher( "/script.jsp" ).forward( req, resp );
         }
         catch ( JDOObjectNotFoundException ex ) {
@@ -79,7 +71,7 @@ public class ScriptServlet extends HttpServlet {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
         try {
-        	if ( ! debug ) this.validateCaptcha( req );
+        	if ( ! debug ) validateCaptcha( recapPrivateKey, req );
         	String author = validateParam( req, "author" );
         	String source = validateParam( req, "source" );
         	String title = validateParam( req, "title" );
@@ -138,42 +130,11 @@ public class ScriptServlet extends HttpServlet {
         }
 	}
 
-	protected void validateCaptcha( HttpServletRequest req ) throws ValidationException {
-		try {
-			URLConnection recaptcha = new URL( "http://api-verify.recaptcha.net/verify" )
-				.openConnection();
-			recaptcha.setDoOutput( true );
-			try {
-				String challengeParam = URLEncoder.encode( validateParam( req,  
-						"recaptcha_challenge_field" ), "utf-8" );
-				String responseParam = URLEncoder.encode( validateParam( req, 
-					"recaptcha_response_field" ), "utf-8" );
-				StringBuffer post = new StringBuffer();
-				post.append( "privatekey=" ).append( this.recapPrivateKey ) 
-						.append( "&remoteip=" ).append( req.getRemoteAddr() )
-						.append( "&challenge=" ).append( challengeParam )
-						.append( "&response=" ).append( responseParam );
-				IOUtils.write( post.toString(), recaptcha.getOutputStream(), "utf-8" );
-				List<String> response = IOUtils.readLines( recaptcha.getInputStream(), "utf-8" );
-				if ( ! "true".equalsIgnoreCase( response.get(0) ) ) 
-					throw new ValidationException( "Invalid captcha response: "
-							+ response.get(1) );
-			}
-			finally {
-				recaptcha.getOutputStream().close();
-				recaptcha.getInputStream().close();
-			}
-		}
-		catch ( IOException ex ) {
-			throw new ValidationException( ex );
-		}
-	}
-	
-	protected String validateParam( HttpServletRequest req, String paramName ) 
-			throws ValidationException {
-		String param = req.getParameter( paramName );
-		if ( param == null || "".equals( param.trim() ) )
-			throw new ValidationException( "For parameter: " + paramName );
-		return param;
+	// TODO memcache!
+	private List<Comment> getComments( PersistenceManager pm ) {
+    	Query query = pm.newQuery( Comment.class );
+    	query.setOrdering( "created asc" );
+    	query.setRange( 0, 100 );
+		return (List<Comment>)query.execute();
 	}
 }
