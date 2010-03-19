@@ -63,8 +63,14 @@ public class ConsoleServlet extends HttpServlet {
 			status = "error";
 		}
 		
-		// TODO proper escaping -- unicode & character codes?
-		result = result.replaceAll("<","&lt;").replaceAll( ">","&gt;").
+		/* For JSON, escape:
+		 *   < and > for HTML
+		 *   \ as \\
+		 *   " as \"
+		 *   and normalize newlines
+		 * TODO proper escaping -- unicode & character codes?
+		 */
+		result = El.esc( result ).
 			replaceAll("\\\\","\\\\\\\\").replaceAll( "\"", "\\\\\\\"" )
 			.replaceAll( "[\\r\\n]+", "\\\\n" );
 		
