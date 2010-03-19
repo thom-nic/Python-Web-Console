@@ -14,11 +14,11 @@ app.handleCommentSubmit = function() {
 		$$('#header .busy').show();
 		YAHOO.util.Connect.asyncRequest( form.method, form.action, { 
 			success: function( resp ) {
-				console.log( resp );
-				$$('#header .busy').hide();
-				// TODO render comment
-				alert(resp.responseText);
-				app.commentDialog.hide();
+//				console.log( resp );
+//				$$('#header .busy').hide();
+//				app.commentDialog.hide();
+				// lazy; just reload the page :)
+				window.location.reload();
 			}, 
 			failure: app.failureResponseHandler
 		}, postData );
