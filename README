@@ -12,13 +12,10 @@ Instructions:
 
 
 TODO
- * "Modify this script" feature
- * List all tags (& cache that!)
- * Comments
+ * Comments + atom comment feed
+ ** Captcha for commenting anonymously
+ * Scaled labels for tag cloud
+ * Admin delete feature for scripts and comments
+ * Google & Bing sitemap ping when new script is posted (as async job)
  * Syntax hilighting for editor
- * Captcha for publishing/ commenting anonymously
- * Login for editing/deleting published scripts per-user
- * Atom feeds for all published scripts
- * Atom feeds by tag
- * 'report this script' feature
- * Atom feeds for script comments
+ * Login for editing/deleting/modifying published scripts
