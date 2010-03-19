@@ -159,7 +159,8 @@ a img { border: none }
 }
 
 .comment .hd {
-  margin: 0 0 4px 0;  
+  margin: 0 0 4px 0;
+  border-bottom:2px solid #fff;
 }
 .comment .hd .title { font-weight: bold }
 .comment .hd .sub { float: right; font-size:11px }
