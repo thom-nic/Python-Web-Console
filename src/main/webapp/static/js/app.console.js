@@ -100,12 +100,14 @@ app.shareDialog.beforeShowEvent.subscribe( function(dlg,evt) {
 	
 app.shareDialog.validate = function () {
 	  var data = this.getData();
-	  if ( ! data.author || data.title.trim() == "" ) {
+	  if ( ! data.author || data.author.trim() == "" ) {
 	    alert("Please enter your name");
 	    return false;
 	  }
 	  if ( ! data.title || data.title.trim() == "" ) {
 	  	alert( "Please enter a title" );
+	    return false;
+	  }
 	  return true;
 	};
 	
