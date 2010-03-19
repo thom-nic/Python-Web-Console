@@ -56,7 +56,7 @@ public class ScriptServlet extends HttpServlet {
         	}
     		// lookup script based on script id/ permalink
         	req.setAttribute( "script", pm.getObjectById( Script.class, permalink  ) );
-        	req.setAttribute( "comments", getComments( pm ) );
+        	req.setAttribute( "comments", getComments( pm, permalink ) );
     		req.getRequestDispatcher( "/script.jsp" ).forward( req, resp );
         }
         catch ( JDOObjectNotFoundException ex ) {
@@ -131,10 +131,11 @@ public class ScriptServlet extends HttpServlet {
 	}
 
 	// TODO memcache!
-	private List<Comment> getComments( PersistenceManager pm ) {
+	private List<Comment> getComments( PersistenceManager pm, String permalink ) {
     	Query query = pm.newQuery( Comment.class );
+    	query.setFilter( "scriptID==:s" );
     	query.setOrdering( "created asc" );
     	query.setRange( 0, 100 );
-		return (List<Comment>)query.execute();
+		return (List<Comment>)query.execute(permalink);
 	}
 }
