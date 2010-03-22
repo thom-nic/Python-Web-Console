@@ -54,6 +54,27 @@ public class El {
 		return LONG_DF.format( dt );
 	}
 	
+	public static String relativeDate( Date dt ) {
+		long difference = System.currentTimeMillis() - dt.getTime();
+		if ( difference < 60000 ) {
+			difference = difference / 1000;
+			if ( difference == 1 ) return "1 second ago";
+			return "" + difference + " seconds ago";
+		}
+		if ( difference < 3600000 ) {
+			difference = difference / 60000;
+			if ( difference == 1 ) return "1 minute ago";
+			return "" + difference  + " minutes ago";			
+		}
+		if ( difference < 86400000 ) {
+			difference = difference / 3600000;
+			if ( difference == 1 ) return "1 hour ago";
+			return "" + difference + " hours ago";
+		}
+
+		return El.longDate( dt );  // if > 24 hours, just show date.
+	}
+	
 	public static int size( Collection<?> c ) {
 		return c.size();
 	}

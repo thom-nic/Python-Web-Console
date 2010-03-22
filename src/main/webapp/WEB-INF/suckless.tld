@@ -53,6 +53,14 @@
   </function>
   
   <function>
+  	<name>relativeDate</name>
+  	<display-name>Relative Date</display-name>
+  	<description>Print a time relative to 'now' (e.g. "24 seconds ago")</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String relativeDate( java.util.Date )</function-signature>
+  </function>
+
+  <function>
   	<name>size</name>
   	<display-name>Collection Size</display-name>
   	<description>Return the size of a collection</description>
