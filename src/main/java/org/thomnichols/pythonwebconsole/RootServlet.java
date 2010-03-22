@@ -31,6 +31,8 @@ public class RootServlet extends HttpServlet {
 	private static final long serialVersionUID = 6074475136160037320L;
 	final Logger log = LoggerFactory.getLogger( getClass() );
 	private PersistenceManagerFactory pmf;
+	private String baseURL;
+	private boolean debug = false;
 	
 	@Override
 	public void init() throws ServletException {
@@ -44,10 +46,11 @@ public class RootServlet extends HttpServlet {
 				super.getServletContext().setAttribute( param, false );
 			else super.getServletContext().setAttribute( param, value );
 		}
-		super.getServletContext().setAttribute( "baseURL",
-				super.getInitParameter( "baseURL" ) + 
-				getServletContext().getContextPath() );
-
+		this.baseURL = super.getInitParameter( "baseURL" ) + 
+			getServletContext().getContextPath(); 
+		super.getServletContext().setAttribute( "baseURL", baseURL );
+		this.debug = (Boolean)getServletContext().getAttribute( "debug" );
+		
 		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
 		super.getServletContext().setAttribute( "persistence", pmf );
 	}
@@ -55,6 +58,11 @@ public class RootServlet extends HttpServlet {
 	@Override
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
+		if ( ! debug && ! req.getRequestURL().toString().startsWith( this.baseURL ) ) {
+			resp.sendRedirect( baseURL );
+			return;
+		}
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
         try {
         	req.setAttribute("recentScripts", getRecentScripts(pm));
