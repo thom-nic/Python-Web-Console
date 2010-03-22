@@ -3,6 +3,7 @@ package org.thomnichols.pythonwebconsole.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -12,7 +13,10 @@ import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class Script {
-	static final DateFormat rfcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+	private static transient final DateFormat rfcFormat =
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+	private static transient final Pattern PERMALINK_PATTERN = 
+		Pattern.compile( "[\\s'\"`~!@#$%^&*()_\\-\\+={}\\[\\];:,.<>/?\\\\]+" );
     @PrimaryKey private String permalink;
     @Persistent private String author;
     @Persistent private Text source;
@@ -33,8 +37,7 @@ public class Script {
     }
     
     private String generatePermalink() {
-    	// TODO make static pattern object for performance
-    	return this.title.replaceAll( "[\\s'\"`~!@#$%^&*()_\\-\\+={}\\[\\];:,.<>/?\\\\]+", "-" );
+    	return PERMALINK_PATTERN.matcher( this.title ).replaceAll( "-" );
     }
     
     public void generateNewPermalink() {
