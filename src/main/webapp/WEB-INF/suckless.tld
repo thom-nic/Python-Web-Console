@@ -18,6 +18,14 @@
   	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
   	<function-signature>java.lang.String esc( java.lang.String )</function-signature>
   </function>
+  
+  <function>
+  	<name>escURL</name>
+  	<display-name>EscapeURL</display-name>
+  	<description>Escape text that will appear in a URL.</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>java.lang.String escURL( java.lang.String )</function-signature>
+  </function>
 
   <function>
   	<name>toHTML</name>
@@ -44,4 +52,11 @@
   	<function-signature>java.lang.String longDate( java.util.Date )</function-signature>
   </function>
   
+  <function>
+  	<name>size</name>
+  	<display-name>Collection Size</display-name>
+  	<description>Return the size of a collection</description>
+  	<function-class>org.thomnichols.pythonwebconsole.El</function-class>
+  	<function-signature>int size( java.util.Collection )</function-signature>
+  </function>
 </taglib>

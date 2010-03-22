@@ -1,7 +1,10 @@
 package org.thomnichols.pythonwebconsole;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,12 +42,20 @@ public class El {
 		return sb.toString();
 	}
 	
+	public static String escURL( String text ) throws UnsupportedEncodingException {
+		return URLEncoder.encode( text, "utf-8" );
+	}
+	
 	public static String shortDate( Date dt ) {
 		return SHORT_DF.format( dt );
 	}
 	
 	public static String longDate( Date dt ) {
 		return LONG_DF.format( dt );
+	}
+	
+	public static int size( Collection<?> c ) {
+		return c.size();
 	}
 	
 	// TODO tag for relative times, e.g. 'nn [seconds|minutes] ago'
