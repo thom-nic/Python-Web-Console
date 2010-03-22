@@ -25,7 +25,7 @@
 	  </init-param>
 	  <init-param>
 	    <param-name>baseURL</param-name>
-	    <param-value>${baseURL}</param-value>
+	    <param-value>${project.url}</param-value>
 	  </init-param>
 	  <init-param>
 	    <param-name>recaptchaPublicKey</param-name>
@@ -122,10 +122,12 @@
 		<taglib-location>/WEB-INF/suckless.tld</taglib-location>
 	</taglib>
   
-  <!-- 
   <error-page>
 		<error-code>500</error-code>
 		<location>/error/500.jsp</location>
 	</error-page>
-	-->
+  <error-page>
+		<error-code>404</error-code>
+		<location>/error/404.jsp</location>
+	</error-page>
 </web-app>
