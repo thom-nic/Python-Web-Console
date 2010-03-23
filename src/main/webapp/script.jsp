@@ -4,9 +4,10 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <title>${s:esc(script.title)} :: Python Web Console</title>
-        <jsp:include page='/WEB-INF/head.jsp' />
+      <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+      <title>${s:esc(script.title)} :: Python Web Console</title>
+      <jsp:include page='/WEB-INF/head.jsp' />
+			<link href='${contextPath}/static/hosted/syntax/sh.min.css' rel="stylesheet" type="text/css" />
     </head>
     <body class='yui-skin-sam'>
     	<div id='wrapper'>
@@ -103,9 +104,9 @@
 		      		<label for='fromEmail'>Your contact email (optional):</label>
 		      		<input type='text' name='fromEmail' id='fromEmail'></input>
 	      		</div>
-	      		<div class='row'><label for='content'>Tell us what's wrong:</label></div>
+	      		<div class='row'><label for='issue'>Tell us what's wrong:</label></div>
 	      		<div>
-		      		<textarea name='content' id='content'></textarea>
+		      		<textarea name='issue' id='issue' rows='40' cols='40'></textarea>
 	      		</div>
 	      		<input type='hidden' name='scriptLink' id='scriptLink' 
 	      			value="${baseURL}/script/${script.permalink}"></input>
@@ -125,30 +126,20 @@
       <script type="text/javascript" src="/static/js/ojay/js-class.js"></script>
       <script type="text/javascript" src="/static/js/ojay/core.js"></script>
 			<script type="text/javascript" src="/static/js/ojay/pkg/forms.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
 			<link href='${contextPath}/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
 			<link href='${contextPath}/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
       <script src='${contextPath}/static/hosted/syntax/shCore.js' type='text/javascript'></script>
 			<script src='${contextPath}/static/hosted/syntax/shBrushPython.js' type='text/javascript'></script> 
 			</c:when>
 			<c:otherwise>
-      <script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&${yui_version}/build/selector/selector-min.js"></script>
-			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/json/json-min.js&${yui_version}/build/element/element-min.js&${yui_version}/build/connection/connection-min.js&${yui_version}/build/container/container-min.js&${yui_version}/build/button/button-min.js"></script>
-      <script type="text/javascript" src="/static/js/ojay/js-class-min.js"></script>
-      <script type="text/javascript" src="/static/js/ojay/core-min.js"></script>
-			<script type="text/javascript" src="/static/js/ojay/pkg/forms-min.js"></script>
-			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shCore.css' rel="stylesheet" type="text/css" />
-			<link href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
-      <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' type='text/javascript'></script>
-			<script src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js' type='text/javascript'></script>
+			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&amp;${yui_version}/build/selector/selector-min.js&amp;${yui_version}/build/json/json-min.js&amp;${yui_version}/build/element/element-min.js&amp;${yui_version}/build/connection/connection-min.js&amp;${yui_version}/build/container/container-min.js&amp;${yui_version}/build/button/button-min.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/ojay/ojay.min.js"></script>
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
+      <script src='${contextPath}/static/hosted/syntax/sh.min.js' type='text/javascript'></script>
 			</c:otherwise>
 			</c:choose>
-      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
 			<script type="text/javascript" src="${contextPath}/static/js/app.script.js"></script>
-			<script language="javascript">
-			  //SyntaxHighlighter.defaults['light'] = true;
-			  SyntaxHighlighter.defaults['wrap-lines'] = false;
-			  SyntaxHighlighter.all();
-			</script>      
     </body>
 </html>

@@ -117,17 +117,15 @@
       <script type="text/javascript" src="/static/js/ojay/js-class.js"></script>
       <script type="text/javascript" src="/static/js/ojay/core.js"></script>
 			<script type="text/javascript" src="/static/js/ojay/pkg/forms.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
       </c:when>
       <c:otherwise>
-      <script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&${yui_version}/build/selector/selector-min.js"></script>
-			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/json/json-min.js&${yui_version}/build/element/element-min.js&${yui_version}/build/connection/connection-min.js&${yui_version}/build/container/container-min.js&${yui_version}/build/button/button-min.js"></script>
-      <script type="text/javascript" src="/static/js/ojay/js-class-min.js"></script>
-      <script type="text/javascript" src="/static/js/ojay/core-min.js"></script>
-			<script type="text/javascript" src="/static/js/ojay/pkg/forms-min.js"></script>
+			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&amp;${yui_version}/build/selector/selector-min.js&amp;${yui_version}/build/json/json-min.js&amp;${yui_version}/build/element/element-min.js&amp;${yui_version}/build/connection/connection-min.js&amp;${yui_version}/build/container/container-min.js&amp;${yui_version}/build/button/button-min.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/ojay/ojay.min.js"></script>
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
 			</c:otherwise>
       </c:choose>
-      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
     </body>
 </html>

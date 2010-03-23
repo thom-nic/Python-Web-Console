@@ -1,9 +1,9 @@
 Ojay.changeAlias('$$'); // like Prototype.js
 $ = function(id) { return Ojay.byId(id).node; };
 
-app = {};
+var app = {};
 
-Util = {
+var Util = {
 	/** Fire an event on a DOM element.
 	 *  from http://jehiah.cz/archive/firing-javascript-events-properly
 	 */

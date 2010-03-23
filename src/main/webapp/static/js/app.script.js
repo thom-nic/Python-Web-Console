@@ -79,7 +79,7 @@ app.reportDialog = new YAHOO.widget.Dialog( "reportDialog", {
 	
 app.reportDialog.validate = function () {
 	  var data = this.getData();
-	  if ( ! data.content || data.content.trim() == "") {
+	  if ( ! data.issue || data.issue.trim() == "") {
 	      alert("Please enter something!");
 	      return false;
 	  }
@@ -96,7 +96,12 @@ Ojay.onDOMReady( function() {
 	app.reportDialog.render();
 	$$('#reportLink').on('click',clickHandler.partial(app.reportDialog));
 	$$('#commentDialog, #reportDialog').removeClass('hidden');
-	$$('#comments .bd').forEach( function(node) { 
+
+	//SyntaxHighlighter.defaults['light'] = true;
+  SyntaxHighlighter.defaults['wrap-lines'] = false;
+  SyntaxHighlighter.all();
+	
+  $$('#comments .bd').forEach( function(node) { 
 	  node.node.innerHTML= Util.findLinks(node.node.innerHTML) ;
 //	  console.debug(node.node.innerHTML);
 	});

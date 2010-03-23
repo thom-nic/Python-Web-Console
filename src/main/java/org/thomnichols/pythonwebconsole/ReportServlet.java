@@ -37,7 +37,7 @@ public class ReportServlet extends HttpServlet {
             msg.setSubject( "Script reported by " + req.getParameter( "fromEmail" ) );
             msg.setText( "A user has reported the following script:\n" 
             		+ req.getParameter( "scriptLink" ) + "\n\nMessage:\n\n" 
-            		+ req.getParameter( "content" ) );
+            		+ req.getParameter( "issue" ) );
             Transport.send(msg);
         }
         catch ( MessagingException ex ) {
