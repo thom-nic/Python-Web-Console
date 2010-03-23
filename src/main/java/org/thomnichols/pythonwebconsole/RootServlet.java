@@ -58,7 +58,9 @@ public class RootServlet extends HttpServlet {
 	@Override
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
-		if ( ! debug && ! req.getRequestURL().toString().startsWith( this.baseURL ) ) {
+		String requestURL = req.getRequestURL().toString();
+		if ( ! debug && ! requestURL.startsWith( this.baseURL ) 
+				&& ! requestURL.contains( ".latest." ) ) {
 			resp.sendRedirect( baseURL );
 			return;
 		}
