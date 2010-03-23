@@ -42,15 +42,15 @@
       </div>
       
       <div id='moreItems'>
-	      <div id='recentScripts'>
+	      <div id='recentScripts' class='scripts'>
 	      	<h3>Recent Items</h3>
 	      	<a class='feed' href="${contextPath}/atom.xml" title='Atom Feed'>&nbsp;</a>
 	      	<ul>
 		      <c:forEach items='${recentScripts}' var='recentScript'>
 		      	<li>
 		      		<a href='${contextPath}/script/${recentScript.permalink}' 
-		      			class='title'>${s:esc(recentScript.title)}</a> by
-		      		<span class='author'>${s:esc(recentScript.author)}</span>, 
+		      			class='title'>${s:esc(recentScript.title)}</a> 
+		      		<span class='author'>${s:esc(recentScript.author)}</span> 
 		      		<span class='date'>${s:relativeDate(recentScript.created)}</span>
 		      	</li> 
 	      	</c:forEach>

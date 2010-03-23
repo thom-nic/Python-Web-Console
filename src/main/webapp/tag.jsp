@@ -15,19 +15,24 @@
   <body>
   	<div id='wrapper'>
 	    <div id='header'>
-	      <h1>Scripts tagged with '${s:esc(tag.name)}' :: Python Web Console</h1>
+	      <h1 class='lmenu'>Scripts tagged with '${s:esc(tag.name)}' :: Python Web Console</h1>
+			  <div class='menu'>
+			  	<a href='${contextPath}/' class='first'>Home</a> |
+			  	<a href='javascript:history.go(-1)'>Back</a> |
+			  	<a href='http://blog.thomnichols.org/'>Blog</a>
+			  </div>
 	    </div>
 
 			<div id='leftCol'>	    
 		    <p>There are ${tag.count} scripts tagged with '${s:esc(tag.name)}.' 
 		    	Here are the ${s:size(scripts)} most recent.</p>
 		     
-		    <ul>
+		    <ul class='scripts'>
 		    <c:forEach var='script' items='${scripts}'>
 		    	<li>
 		    		<a href='${contextPath}/script/${script.permalink}'>${s:esc(script.title)}</a>
-		    		by <span class='author'>${s:esc(script.author)}</span>
-		 				on <span class='publishDate'>${s:longDate(script.created)}</span>
+		    		<span class='author'>${s:esc(script.author)}</span>
+		 				<span class='publishDate'>${s:longDate(script.created)}</span>
 		 			</li>
 		   	</c:forEach>
 		    </ul>
