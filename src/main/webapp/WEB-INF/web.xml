@@ -70,7 +70,6 @@
 	  </init-param>
   </servlet>
   
-	<!-- TODO catch-all that redirects to 404 page. -->
 	<servlet-mapping>
     <servlet-name>root</servlet-name>
     <url-pattern>/main</url-pattern>
@@ -108,7 +107,7 @@
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<el-ignored>false</el-ignored>
-			<page-encoding>application/xhtml+xml; charset=UTF-8</page-encoding>
+			<page-encoding>UTF-8</page-encoding>
 			<trim-directive-whitespaces>true</trim-directive-whitespaces>		
 		</jsp-property-group>
 	</jsp-config>
