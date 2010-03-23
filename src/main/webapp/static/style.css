@@ -134,6 +134,14 @@ a img { border: none }
 	margin: 0 0 0 20px;
 }
 
+#source pre {
+  background-color:#222;
+  color:#5F5;
+  margin:8px 0;
+  overflow-x:scroll;
+  padding:3px;
+}
+
 #reportDialog, #commentDialog { width: 430px }
 
 #reportDialog textarea, #commentDialog textarea {
