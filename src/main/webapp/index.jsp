@@ -67,7 +67,8 @@
 	      <div id='otherLinks'>
 	      	<h3>Related Links</h3>
 	      	<ul>
-		      	<li><a href='http://blog.thomnichols.org'>Thom Nichols</a></li>
+		      	<li><a href='http://blog.thomnichols.org/tag/PythonWebConsole'>About this project</a></li>
+		      	<li><a href='http://blog.thomnichols.org/'>Thom Nichols</a> (blog)</li>
 	      		<li><a href='http://jython.org'>Jython</a></li>
 	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
           </ul>

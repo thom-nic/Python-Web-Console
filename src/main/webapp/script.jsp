@@ -16,7 +16,7 @@
 				  <div class='menu'>
 				  	<a href='${contextPath}/' class='first'>Home</a> |
 				  	<a href='javascript:history.go(-1)'>Back</a> |
-				  	<a href='http://blog.thomnichols.org/'>Blog</a>
+				  	<a href='http://blog.thomnichols.org/tag/PythonWebConsole'>Blog</a>
 				  </div>
 	      </div>
 	      
@@ -62,6 +62,7 @@
 		     	</div>
 	     	</div>
 	
+	      <div id='footer'>&copy; 2010 Thom Nichols</div>
 			</div>
 			
 			<div id='commentDialog' class='hidden'>
