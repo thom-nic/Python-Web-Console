@@ -24,6 +24,8 @@ dest_base=src/main/webapp/static/hosted/syntax/
 mkdir $dest_base
 sh_url=http://alexgorbatchev.com/pub/sh/current
 wget -P $dest_base \
+ $sh_url/styles/help.png $sh_url/styles/magnifier.png $sh_url/styles/printer.png \
+ $sh_url/styles/page_white_code.png $sh_url/styles/page_white_copy.png \
  $sh_url/styles/shCore.css $sh_url/styles/shThemeFadeToGrey.css \
  $sh_url/scripts/shCore.js $sh_url/scripts/shBrushPython.js
 
