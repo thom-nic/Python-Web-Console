@@ -14,7 +14,7 @@ html {
 }
 
 pre.code, .editbox, span.py-delimiter, span.py-special, span.py-operator {
-  color: #eee;
+  color: #eff;
 }
 
 .editbox p {
@@ -27,7 +27,7 @@ span.py-error {
 }
 
 span.py-keyword {
-  color: #39F;
+  color: #D01D33;
   font-weight: bold;
 }
 
@@ -35,8 +35,10 @@ span.py-literal {
   color: #281;
 }
 
-span.py-identifier, span.py-func {
-  color: #ccc;
+span.py-func { color: #aaa }
+
+span.py-identifier{
+  color: #ddd;
 }
 
 span.py-type, span.py-decorator {
@@ -48,5 +50,5 @@ span.py-comment {
 }
 
 span.py-string, span.py-bytes, span.py-raw, span.py-unicode {
-  color: #f33;
+  color: #EE6
 }
