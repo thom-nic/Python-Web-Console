@@ -13,7 +13,9 @@
       <link rel="alternate" type="application/atom+xml" title="Python Web Console RSS Feed" 
             href="${contextPath}/atom.xml" />
       <jsp:include page='/WEB-INF/head.jsp' />
+      <!-- 
 			<link href='${contextPath}/static/codemirror/pythoncolors.css' rel="stylesheet" type="text/css" />
+			 -->
     </head>
     <body class="yui-skin-sam">
       <div id='header'>
@@ -127,7 +129,7 @@
       <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
 			</c:otherwise>
       </c:choose>
-      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.min.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
     </body>
 </html>

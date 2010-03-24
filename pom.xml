@@ -308,6 +308,66 @@
   			</plugins>
   		</build>
   	</profile>
+  	<profile>
+  		<id>minify-codemirror</id>
+  		<build>
+  			<plugins>
+		      <plugin>
+		        <groupId>com.samaxes.maven</groupId>
+		        <artifactId>maven-minify-plugin</artifactId>
+		        <version>1.1</version>
+		        <executions>
+          		<execution>
+		        		<id>minify-main</id>
+								<phase>process-resources</phase>
+		        		<goals><goal>minify</goal></goals>
+				        <configuration>
+				          <jsDir>static/codemirror</jsDir>
+				          <jsFiles>
+				            <param>codemirror.js</param>
+				          </jsFiles>
+				          <jsFinalFile>codemirror.js</jsFinalFile>
+				        </configuration>
+			        </execution>
+          		<execution>
+		        		<id>minify-bundle</id>
+								<phase>process-resources</phase>
+		        		<goals><goal>minify</goal></goals>
+				        <configuration>
+				          <jsDir>static/codemirror</jsDir>
+				          <jsFiles>
+				            <param>util.js</param>
+				            <param>stringstream.js</param>
+				            <param>select.js</param>
+				            <param>undo.js</param>
+				            <param>editor.js</param>
+				            <param>tokenize.js</param>
+				          </jsFiles>
+				          <jsFinalFile>bundle.js</jsFinalFile>
+				        </configuration>
+			        </execution>
+          		<execution>
+		        		<id>minify-python</id>
+								<phase>process-resources</phase>
+		        		<goals><goal>minify</goal></goals>
+				        <configuration>
+				          <jsDir>static/codemirror</jsDir>
+				          <cssDir>static/codemirror</cssDir>
+				          <cssFiles>
+				          	<param>pythoncolors.css</param>
+				          </cssFiles>
+				          <jsFiles>
+				            <param>parsepython.js</param>
+				          </jsFiles>
+				          <jsFinalFile>parsepython.js</jsFinalFile>
+				          <cssFinalFile>pythoncolors.css</cssFinalFile>
+				        </configuration>
+			        </execution>
+		        </executions>
+		      </plugin>
+  			</plugins>
+  		</build>
+  	</profile>
   </profiles>
   
   <pluginRepositories>

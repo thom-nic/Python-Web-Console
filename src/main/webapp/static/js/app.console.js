@@ -129,9 +129,9 @@ Ojay.onDOMReady( function() {
 	
 	try {
 		app.editor = CodeMirror.fromTextArea("src", {
-		  parserfile: ["parsepython.js"],
 		  path: "/static/codemirror/",
-		  stylesheet: "/static/codemirror/pythoncolors.css",
+		  parserfile: ["parsepython.min.js"], basefiles: ['bundle.min.js'],
+		  stylesheet: "/static/codemirror/pythoncolors.min.css",
 		  indentUnit: 4, textWrapping: false, height: '336px'
 		});
 	} catch ( ex ) { console.warn( ex ); }
