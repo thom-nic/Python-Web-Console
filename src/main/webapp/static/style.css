@@ -87,17 +87,21 @@ a img { border: none }
 #console textarea, #output textarea {
   font-family: monospace;
   font-weight: bold;
-  height: 330px;
   width:100%;
   background-color:#222;
-  border: solid 2px #666;
 	color: #0d1;
 	padding: 3px
 }
 
+#console textarea, #output textarea, .CodeMirror-wrapping {
+  border: solid 2px #666;  
+  border-radius: 4px; -moz-border-radius: 4px;
+  height: 330px;
+}
+
 #console .actions, #footer {
   margin: 8px 0; 
-  color:#555555;
+  color:#555;
   font-size:smaller;
   font-weight:bold;
 }

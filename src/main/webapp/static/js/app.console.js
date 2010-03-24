@@ -6,6 +6,7 @@ app.evalScript = function(btn,evt) {
 		var form = $('consoleForm');
 		var postData = $$.Forms.getQueryString(form);
 		$$('#header .busy').show();
+		$('src').value = app.editor.getCode();
 		YAHOO.util.Connect.asyncRequest( form.method, form.action, {
 			success: function( resp ) {
 				console.debug( "response", resp );
@@ -125,6 +126,15 @@ Ojay.onDOMReady( function() {
 		app.shareDialog.show();
 		evt.stopEvent();
 	});
+	
+	try {
+		app.editor = CodeMirror.fromTextArea("src", {
+		  parserfile: ["parsepython.js"],
+		  path: "/static/codemirror/",
+		  stylesheet: "/static/codemirror/pythoncolors.css",
+		  indentUnit: 4, textWrapping: false, height: '336px'
+		});
+	} catch ( ex ) { console.warn( ex ); }
 	
 	// auto-run the loaded script
 	if ( window.location.hash == "#run" ) Util.fireEvent( $('runBtn'),'click' );

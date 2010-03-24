@@ -13,7 +13,7 @@
   <properties>
     <gae.plugin.version>0.5.5</gae.plugin.version>
     <gae.version>1.3.1</gae.version>
-    <gae.application.version>test-2</gae.application.version>
+    <gae.application.version>test-3-codemirror</gae.application.version>
     <jython.version>2.5.0</jython.version>
   	
   	<debug>true</debug>

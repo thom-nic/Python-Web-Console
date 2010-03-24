@@ -1,0 +1,52 @@
+html {
+  cursor: text;
+}
+
+.editbox {
+  padding: .4em;
+  margin: 0;
+  font-family: monospace;
+  font-size: 10pt;
+  font-weight: bold;
+  line-height: 1.1em;
+  color: #eee;
+  background-color:#222;
+}
+
+pre.code, .editbox, span.py-delimiter, span.py-special, span.py-operator {
+  color: #eee;
+}
+
+.editbox p {
+  margin: 0;
+}
+
+span.py-error {
+  background-color: #b66;
+  color: #eee;
+}
+
+span.py-keyword {
+  color: #39F;
+  font-weight: bold;
+}
+
+span.py-literal {
+  color: #281;
+}
+
+span.py-identifier, span.py-func {
+  color: #ccc;
+}
+
+span.py-type, span.py-decorator {
+  color: #c3e;
+}
+
+span.py-comment {
+  color: #C92;
+}
+
+span.py-string, span.py-bytes, span.py-raw, span.py-unicode {
+  color: #f33;
+}

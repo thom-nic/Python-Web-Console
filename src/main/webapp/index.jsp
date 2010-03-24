@@ -4,15 +4,16 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <title>Python Web Console</title>
-        <meta name="google-site-verification" content="p0Hu7aK_PFOKsj_IDZsQTD5nyTpV2vahu4tumL0-Eos" />
-        <meta name="y_key" content="a8890ae5456835c2" />
-        <meta name="msvalidate.01" content="65623C6210AC5823C328C9EAD6A9DD79" />
-        <meta name="description" content="Run and share Python scripts in an online console" />
-        <link rel="alternate" type="application/atom+xml" title="Python Web Console RSS Feed" 
-              href="${contextPath}/atom.xml" />
-        <jsp:include page='/WEB-INF/head.jsp' />
+      <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+      <title>Python Web Console</title>
+      <meta name="google-site-verification" content="p0Hu7aK_PFOKsj_IDZsQTD5nyTpV2vahu4tumL0-Eos" />
+      <meta name="y_key" content="a8890ae5456835c2" />
+      <meta name="msvalidate.01" content="65623C6210AC5823C328C9EAD6A9DD79" />
+      <meta name="description" content="Run and share Python scripts in an online console" />
+      <link rel="alternate" type="application/atom+xml" title="Python Web Console RSS Feed" 
+            href="${contextPath}/atom.xml" />
+      <jsp:include page='/WEB-INF/head.jsp' />
+			<link href='${contextPath}/static/codemirror/pythoncolors.css' rel="stylesheet" type="text/css" />
     </head>
     <body class="yui-skin-sam">
       <div id='header'>
@@ -23,7 +24,7 @@
       <div id='console'>
       	<h2>Source</h2>
         <form id='consoleForm' action='${contextPath}/console/' method='post'>
-          <textarea name='src' rows='50' cols='82'><c:choose>
+          <textarea name='src' id='src' rows='50' cols='82'><c:choose>
           	<c:when test='${source!=null}'>${s:esc(source)}</c:when>
 	          	<c:otherwise># Script text here</c:otherwise>
           </c:choose></textarea>
@@ -126,6 +127,7 @@
       <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
 			</c:otherwise>
       </c:choose>
+      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
     </body>
 </html>
