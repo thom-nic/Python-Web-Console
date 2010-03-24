@@ -75,11 +75,13 @@
 	      		<li><a href='http://jython.org'>Jython</a></li>
 	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
           </ul>
+          <c:if test='${!debug}'>
 					<div>
 						<a href='http://code.google.com/appengine/'>
 		      		<img id="poweredby" alt="Powered by Google App Engine" 
 	            src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" /></a>
 	        </div>
+	        </c:if>
 	      </div>      
       </div>
       
@@ -120,16 +122,17 @@
       <script type="text/javascript" src="/static/js/ojay/js-class.js"></script>
       <script type="text/javascript" src="/static/js/ojay/core.js"></script>
 			<script type="text/javascript" src="/static/js/ojay/pkg/forms.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
       </c:when>
       <c:otherwise>
 			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&amp;${yui_version}/build/selector/selector-min.js&amp;${yui_version}/build/json/json-min.js&amp;${yui_version}/build/element/element-min.js&amp;${yui_version}/build/connection/connection-min.js&amp;${yui_version}/build/container/container-min.js&amp;${yui_version}/build/button/button-min.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/ojay/ojay.min.js"></script>
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.min.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
 			</c:otherwise>
       </c:choose>
-      <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.min.js"></script>
-      <script type="text/javascript" src="${contextPath}/static/js/app.console.js"></script>
     </body>
 </html>
