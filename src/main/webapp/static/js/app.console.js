@@ -4,9 +4,11 @@
 
 app.evalScript = function(btn,evt) {
 		var form = $('consoleForm');
+		try {
+			if ( app.editor ) $('src').value = app.editor.getCode();
+		} catch ( ex ) { console.warn("error getting code from editor", ex); }
 		var postData = $$.Forms.getQueryString(form);
 		$$('#header .busy').show();
-		$('src').value = app.editor.getCode();
 		YAHOO.util.Connect.asyncRequest( form.method, form.action, {
 			success: function( resp ) {
 				console.debug( "response", resp );
@@ -64,7 +66,8 @@ app.consoleKeyHandler = function(o,e) {
 
 app.handleShareSubmit = function() {
 		var form = $('shareForm');
-		form['source'].value = $('consoleForm')['src'].value;
+		form['source'].value = app.editor ? 
+				app.editor.getCode() : $('consoleForm')['src'].value;
 		var postData = $$.Forms.getQueryString(form);
 		$$('#header .busy').show();
 		YAHOO.util.Connect.asyncRequest( 'POST', form.action, { 
@@ -135,7 +138,11 @@ Ojay.onDOMReady( function() {
 		  indentUnit: 4, textWrapping: false, height: '336px'
 		});
 	} catch ( ex ) { console.warn( ex ); }
-	
+
 	// auto-run the loaded script
-	if ( window.location.hash == "#run" ) Util.fireEvent( $('runBtn'),'click' );
+	if ( window.location.hash == "#run" ) {
+		if ( app.editor ) app.editor.options.initCallback = 
+			Util.fireEvent.partial( $('runBtn'),'click' );
+		else Util.fireEvent( $('runBtn'),'click' );
+	}
 });
