@@ -80,7 +80,9 @@
 	      </div>      
       </div>
       
-      <div id='footer'>&copy; 2010 Thom Nichols</div>
+      <div id='footer'>&copy; 2010 Thom Nichols
+      	<a href='http://validator.w3.org/check?uri=${s:escURL(baseURL)}'>W3C</a>
+      </div>
       
       <div id='shareDialog'>
  		  	<div class="hd">Share This Script!</div>
