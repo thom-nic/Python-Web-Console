@@ -86,11 +86,11 @@
         <scope>provided</scope>
     </dependency>
     <dependency>
-        <artifactId>standard</artifactId>
-        <groupId>taglibs</groupId>
-        <version>1.1.2</version>
-        <type>jar</type>
-        <scope>runtime</scope>
+      <artifactId>standard</artifactId>
+      <groupId>taglibs</groupId>
+      <version>1.1.2</version>
+      <type>jar</type>
+      <scope>runtime</scope>
     </dependency>
 		<dependency>
 	    <groupId>commons-io</groupId>
