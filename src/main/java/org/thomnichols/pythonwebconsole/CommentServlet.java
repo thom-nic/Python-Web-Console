@@ -48,10 +48,11 @@ public class CommentServlet extends HttpServlet {
 			String title = validateParam( req, "title" );
 			String commentText = El.esc( validateParam( req, "content" ) );
 			String author = req.getParameter( "author" );
+			String email = req.getParameter( "email" );
 			
 			pm.getObjectById( Script.class, scriptID ); // verify script exists.
 			
-			Comment comment = new Comment( scriptID, author, title, commentText );
+			Comment comment = new Comment( scriptID, author, email, title, commentText );
 			pm.makePersistent( comment );
 			log.debug( "Saved comment from: " + comment.getAuthor() );
 			// TODO how to represent this in the response?

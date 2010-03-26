@@ -42,6 +42,10 @@
 						<h2>Comments</h2>
 						<c:forEach var='comment' items='${comments}'>
 						<div class='comment'>
+							<c:if test='${comment.emailHash!=null}'>
+							<img class="gravatar" alt="avatar" 
+								src="http://www.gravatar.com/avatar/${comment.emailHash}?s=32&d=identicon" />
+							</c:if>
 							<div class='hd'>
 								<div class='sub'>
 									<a name='${comment.permalink}'></a>
@@ -83,6 +87,11 @@
 	      		<div class='row'>
 		      		<label for='author'>Your name:</label>
 		      		<input type='text' name='author' id='author'></input>
+	      		</div>
+	      		<div class='row'>
+		      		<label for='email'>Email:</label>
+		      		<span class='note'>(optional, for Gravatar)</span>
+		      		<input type='text' name='email' id='email'></input>
 	      		</div>
 	      		<div class='row'>
 	      			<label for='title'>Subject:</label>

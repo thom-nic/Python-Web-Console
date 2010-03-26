@@ -1,9 +1,11 @@
 package org.thomnichols.pythonwebconsole;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -87,4 +89,21 @@ public class Util {
     		( System.currentTimeMillis() % 99999 ); 
     }
 
+    /**
+     * Trims data and hashes it.
+     * @param data
+     * @return MD5Sum string
+     * @throws RuntimeException
+     */
+    public static String md5Hash( String data ) throws RuntimeException {
+    	if ( data == null ) return null;
+    	try {
+	    	MessageDigest md5 = MessageDigest.getInstance( "md5" );
+	    	md5.update( data.trim().getBytes( "utf-8" ) );
+	    	return String.format( "%032x", new BigInteger( 1, md5.digest() ) );
+    	}
+    	catch ( Exception ex ) {
+    		throw new RuntimeException( "Error creating MD5 hash", ex );
+    	}
+    }
 }
