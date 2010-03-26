@@ -71,8 +71,8 @@
 		      	<li><a href='http://blog.thomnichols.org/'>Thom Nichols</a> (blog)</li>
 	      		<li><a href='http://jython.org'>Jython</a></li>
 	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
-	      		<li>Syntax provided by <a href='http://alexgorbatchev.com/wiki/SyntaxHighlighter'>SyntaxHighlighter</a> 
-	      			and <a href='http://marijn.haverbeke.nl/codemirror/'>CodeMirror</a></li>
+	      		<li><a href='http://alexgorbatchev.com/wiki/SyntaxHighlighter'>SyntaxHighlighter</a> 
+	      			and <a href='http://marijn.haverbeke.nl/codemirror/'>CodeMirror</a> for color!</li>
           </ul>
           <c:if test='${!debug}'>
 					<div>
