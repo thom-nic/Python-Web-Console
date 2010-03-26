@@ -174,14 +174,23 @@ a img { border: none }
 .scripts li a { font-size:12px }
 .scripts li .author { font-weight: bold; margin: 0 8px }
 
+.note { font-size: 11px; font-style: italic }
+
 .comment {
   background-color:#eee;
   margin:10px 0;
   padding:5px 10px;
 }
 
+.comment .gravatar {
+  float: right;
+  margin:0 0 0 5px;
+  width: 32px; height: 32px;
+}
+
 .comment .hd {
   margin: 0 0 4px 0;
+  /* width: 540px; */
   border-bottom:2px solid #fff;
 }
 .comment .hd .title { font-weight: bold }

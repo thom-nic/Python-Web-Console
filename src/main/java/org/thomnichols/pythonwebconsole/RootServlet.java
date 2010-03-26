@@ -36,21 +36,17 @@ public class RootServlet extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		Enumeration<String> params = super.getInitParameterNames();
+		Enumeration<String> params = getServletContext().getInitParameterNames();
 		while ( params.hasMoreElements() ) {
-			String param = params.nextElement();
-			String value = super.getInitParameter( param );
-			if ( "true".equalsIgnoreCase( value ) )
-				super.getServletContext().setAttribute( param, true );
-			else if ( "false".equalsIgnoreCase( value ) )
-				super.getServletContext().setAttribute( param, false );
-			else super.getServletContext().setAttribute( param, value );
+			String key = params.nextElement();
+			super.getServletContext().setAttribute( key, 
+					getServletContext().getInitParameter( key ) );
 		}
+		this.debug = Boolean.parseBoolean( super.getInitParameter( "debug" ) );
+		super.getServletContext().setAttribute( "debug", debug );
 		this.baseURL = super.getInitParameter( "baseURL" ) + 
 			getServletContext().getContextPath(); 
-		super.getServletContext().setAttribute( "baseURL", baseURL );
-		this.debug = (Boolean)getServletContext().getAttribute( "debug" );
-		
+		super.getServletContext().setAttribute( "baseURL", baseURL );		
 		this.pmf = JDOHelper.getPersistenceManagerFactory("datastore");
 		super.getServletContext().setAttribute( "persistence", pmf );
 	}
