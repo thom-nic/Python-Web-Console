@@ -44,6 +44,7 @@
 						<div class='comment'>
 							<div class='hd'>
 								<div class='sub'>
+									<a name='${comment.permalink}'></a>
 									<span class='author'>${s:esc(comment.author)}</span> 
 									<span class='date'>${s:shortDate(comment.created)}</span>
 								</div>

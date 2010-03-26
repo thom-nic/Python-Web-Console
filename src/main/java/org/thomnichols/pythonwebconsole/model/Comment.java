@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.thomnichols.pythonwebconsole.Util;
+
 import com.google.appengine.api.datastore.Text;
 
 
@@ -15,6 +17,7 @@ public class Comment {
 
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	@PrimaryKey private Long id;
+	@Persistent private String permalink = "";
 	@Persistent private String author;
 	@Persistent private Date created = new Date();
 	@Persistent private String title;
@@ -27,10 +30,13 @@ public class Comment {
 				"Anonymous" : author;
 		this.title = title;
 		this.text = new Text( text );
+		this.permalink = Util.generatePermalinkTS( this.title );
 	}
 	
     public String getAuthor() { return this.author; }
     public String getText() { return this.text.getValue(); }
     public Date getCreated() { return this.created; }
     public String getTitle() { return this.title; }
+    public String getPermalink() { return this.permalink; }
+    public String getScriptID() { return this.scriptID; }
 }

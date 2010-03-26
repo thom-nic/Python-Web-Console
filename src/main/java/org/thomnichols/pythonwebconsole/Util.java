@@ -4,13 +4,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
 public class Util {
+
+	public static final DateFormat RFC_DATE_FORMAT =
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+	private static final Pattern PERMALINK_PATTERN = 
+		Pattern.compile( "[\\s'\"`~!@#$%^&*()_\\-\\+={}\\[\\];:,.<>/?\\\\]+" );
 
 	public static void validateCaptcha( String recapPrivateKey, HttpServletRequest req ) 
 			throws ValidationException {
@@ -44,6 +52,14 @@ public class Util {
 		}
 	}
 	
+	/**
+	 * Asserts that a parameter value is neither null nor whitespace-only.  Returns 
+	 * the value or throws a {@link ValidationException}.
+	 * @param req
+	 * @param paramName
+	 * @return
+	 * @throws ValidationException
+	 */
 	public static String validateParam( HttpServletRequest req, String paramName ) 
 				throws ValidationException {
 		String param = req.getParameter( paramName );
@@ -51,4 +67,24 @@ public class Util {
 			throw new ValidationException( "For parameter: " + paramName );
 		return param;
 	}
+	
+	/**
+	 * Generate a string suitable for a permalink by removing URL characters 
+	 * that would need to be escaped.
+	 * @param title
+	 * @return
+	 */
+    public static String generatePermalink( String title ) {
+    	return PERMALINK_PATTERN.matcher( title ).replaceAll( "-" );
+    }
+    
+    /**
+     * Same as {@link #generatePermalink(String)}, but adds a pseudo-random 
+     * number at the end to avoid collisions.
+     */
+    public static String generatePermalinkTS( String title ) {
+    	return generatePermalink( title ) + "-" + 
+    		( System.currentTimeMillis() % 99999 ); 
+    }
+
 }

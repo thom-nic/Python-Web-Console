@@ -9,14 +9,12 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.thomnichols.pythonwebconsole.Util;
+
 import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
 public class Script {
-	private static transient final DateFormat rfcFormat =
-		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-	private static transient final Pattern PERMALINK_PATTERN = 
-		Pattern.compile( "[\\s'\"`~!@#$%^&*()_\\-\\+={}\\[\\];:,.<>/?\\\\]+" );
     @PrimaryKey private String permalink;
     @Persistent private String author;
     @Persistent private Text source;
@@ -33,15 +31,11 @@ public class Script {
         this.title = title;
         this.tags = tags;
         
-        this.permalink = generatePermalink();
-    }
-    
-    private String generatePermalink() {
-    	return PERMALINK_PATTERN.matcher( this.title ).replaceAll( "-" );
+        this.permalink = Util.generatePermalink(this.title);
     }
     
     public void generateNewPermalink() {
-    	this.permalink = generatePermalink() + "-" + ( System.currentTimeMillis() % 99999 ); 
+    	this.permalink = Util.generatePermalinkTS(this.title); 
     }
 
     public String getAuthor() { return this.author; }
@@ -51,8 +45,8 @@ public class Script {
     public String[] getTags() { return this.tags; }
     public String getPermalink() { return this.permalink; }
     public String getCreatedRFC() {
-    	if ( rfcFormatDate == null ) {
-    		String dt = rfcFormat.format(this.created);
+    	if ( this.rfcFormatDate == null ) {
+    		String dt = Util.RFC_DATE_FORMAT.format(this.created);
     		rfcFormatDate = dt.substring( 0, dt.length()-2 ) + 
     			":" + dt.substring( dt.length() -2 );
     	}
