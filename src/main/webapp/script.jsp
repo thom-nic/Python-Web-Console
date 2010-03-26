@@ -7,7 +7,15 @@
       <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
       <title>${s:esc(script.title)} :: Python Web Console</title>
       <jsp:include page='/WEB-INF/head.jsp' />
+			<c:choose>
+			<c:when test='${debug}'>
+			<link href='${contextPath}/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
+			<link href='${contextPath}/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
+			</c:when>
+			<c:otherwise>
 			<link href='${contextPath}/static/hosted/syntax/sh.min.css' rel="stylesheet" type="text/css" />
+			</c:otherwise>
+			</c:choose>
     </head>
     <body class='yui-skin-sam'>
     	<div id='wrapper'>
@@ -126,20 +134,18 @@
       <script type="text/javascript" src="/static/js/ojay/js-class.js"></script>
       <script type="text/javascript" src="/static/js/ojay/core.js"></script>
 			<script type="text/javascript" src="/static/js/ojay/pkg/forms.js"></script>
-      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
-			<link href='${contextPath}/static/hosted/syntax/shCore.css' rel="stylesheet" type="text/css" />
-			<link href='${contextPath}/static/hosted/syntax/shThemeFadeToGrey.css' rel="stylesheet" type="text/css" />
       <script src='${contextPath}/static/hosted/syntax/shCore.js' type='text/javascript'></script>
 			<script src='${contextPath}/static/hosted/syntax/shBrushPython.js' type='text/javascript'></script> 
+      <script type="text/javascript" src="${contextPath}/static/js/application.js"></script>
+			<script type="text/javascript" src="${contextPath}/static/js/app.script.js"></script>
 			</c:when>
 			<c:otherwise>
 			<script type="text/javascript" src="http://yui.yahooapis.com/combo?${yui_version}/build/yahoo-dom-event/yahoo-dom-event.js&amp;${yui_version}/build/selector/selector-min.js&amp;${yui_version}/build/json/json-min.js&amp;${yui_version}/build/element/element-min.js&amp;${yui_version}/build/connection/connection-min.js&amp;${yui_version}/build/container/container-min.js&amp;${yui_version}/build/button/button-min.js"></script>
       <script type="text/javascript" src="${contextPath}/static/js/ojay/ojay.min.js"></script>
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
-      <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
       <script src='${contextPath}/static/hosted/syntax/sh.min.js' type='text/javascript'></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.script.min.js"></script>
 			</c:otherwise>
 			</c:choose>
-			<script type="text/javascript" src="${contextPath}/static/js/app.script.js"></script>
     </body>
 </html>

@@ -1,5 +1,6 @@
 package org.thomnichols.pythonwebconsole;
 
+import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 import static org.thomnichols.pythonwebconsole.Util.validateCaptcha;
 import static org.thomnichols.pythonwebconsole.Util.validateParam;
 
@@ -21,6 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Comment;
 import org.thomnichols.pythonwebconsole.model.Script;
 import org.thomnichols.pythonwebconsole.model.Tag;
+
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.labs.taskqueue.Queue;
+import com.google.appengine.api.labs.taskqueue.QueueFactory;
+import com.google.appengine.api.labs.taskqueue.TaskOptions.Method;
 
 /**
  * This servlet handles sharing and retrieving saved scripts. 
@@ -90,6 +96,7 @@ public class ScriptServlet extends HttpServlet {
         	log.debug( "Saving new script with permalink: {}", script.getPermalink() );
         	pm.makePersistent( script );
 
+        	this.ping(tx);
             tx.commit();
 
             // update tag count:
@@ -128,6 +135,20 @@ public class ScriptServlet extends HttpServlet {
         	}
         	pm.close();
         }
+	}
+	
+	/**
+	 * Send sitemap ping for Google and Bing.  These tasks fire asynchronously
+	 * so if there is a delayed response from one of these services, it does not
+	 * hold up submission of a script.
+	 */
+	private void ping( Transaction tx ) {
+		if ( debug ) return;
+		Queue queue = QueueFactory.getQueue( "sitemap" );
+		queue.add( DatastoreServiceFactory.getDatastoreService().getCurrentTransaction(), 
+				url("/tasks/ping").method( Method.POST ).param( "engine", "google" ) );
+		queue.add( DatastoreServiceFactory.getDatastoreService().getCurrentTransaction(), 
+				url("/tasks/ping").method( Method.POST ).param( "engine", "bing" ) );
 	}
 
 	// TODO memcache!

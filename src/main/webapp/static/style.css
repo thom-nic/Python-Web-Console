@@ -105,6 +105,9 @@ a img { border: none }
   font-size:smaller;
   font-weight:bold;
 }
+
+#footer a { border-bottom: thin dotted; text-decoration: none; color: inherit }
+
 #console .actions input { font-size:larger; } 
 
 #console .actions .note { font-style: italic }

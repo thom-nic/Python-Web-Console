@@ -69,6 +69,10 @@
 	    <param-value>${adminEmail}</param-value>
 	  </init-param>
   </servlet>
+  <servlet>
+  	<servlet-name>ping</servlet-name>
+  	<servlet-class>org.thomnichols.pythonwebconsole.SitemapPingServlet</servlet-class>
+  </servlet>
   
 	<servlet-mapping>
     <servlet-name>root</servlet-name>
@@ -102,6 +106,10 @@
     <servlet-name>report</servlet-name>
     <url-pattern>/report</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>ping</servlet-name>
+    <url-pattern>/tasks/ping</url-pattern>
+	</servlet-mapping>
 	
 	<jsp-config>
 		<jsp-property-group>
@@ -120,6 +128,15 @@
 		<taglib-uri>http://thomnichols.org/jsp/suckless</taglib-uri>
 		<taglib-location>/WEB-INF/suckless.tld</taglib-location>
 	</taglib>
+	
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/tasks/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
   
   <error-page>
 		<error-code>500</error-code>

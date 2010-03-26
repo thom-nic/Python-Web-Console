@@ -112,7 +112,7 @@
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-labs</artifactId>
       <version>${gae.version}</version>
-      <scope>test</scope>
+      <!-- <scope>test</scope>-->
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
@@ -219,23 +219,46 @@
         <groupId>com.samaxes.maven</groupId>
         <artifactId>maven-minify-plugin</artifactId>
         <version>1.1</version>
-        <executions><execution>
-        	<phase>package</phase>
-        	<goals><goal>minify</goal></goals>
-        </execution></executions>
-        <configuration>
-          <cssDir>static</cssDir>
-          <jsDir>static/js</jsDir>
-          <cssFiles>
-            <param>style.css</param>
-          </cssFiles>
-          <jsFiles>
-            <param>application.js</param>
-          </jsFiles>
-          <cssFinalFile>style.css</cssFinalFile>
-          <jsFinalFile>app.js</jsFinalFile>
-          <verbose>true</verbose>
-        </configuration>
+        <executions>
+        	<execution>
+        		<id>css</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <cssDir>static</cssDir>
+		          <cssFiles>
+		            <param>style.css</param>
+		          </cssFiles>
+		          <cssFinalFile>style.css</cssFinalFile>
+		        </configuration>
+        	</execution>
+        	<execution>
+        		<id>script-page</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <jsDir>static/js</jsDir>
+		          <jsFiles>
+		            <param>application.js</param>
+		            <param>app.script.js</param>
+		          </jsFiles>
+		          <jsFinalFile>app.script.js</jsFinalFile>
+		        </configuration>
+        	</execution>
+        	<execution>
+        		<id>console-page</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <jsDir>static/js</jsDir>
+		          <jsFiles>
+		            <param>application.js</param>
+		            <param>app.console.js</param>
+		          </jsFiles>
+		          <jsFinalFile>app.console.js</jsFinalFile>
+		        </configuration>
+        	</execution>
+       	</executions>
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>

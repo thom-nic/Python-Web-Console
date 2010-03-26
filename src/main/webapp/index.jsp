@@ -74,6 +74,8 @@
 		      	<li><a href='http://blog.thomnichols.org/'>Thom Nichols</a> (blog)</li>
 	      		<li><a href='http://jython.org'>Jython</a></li>
 	      		<li><a href='http://github.com/tomstrummer/Python-Web-Console'>Fork this project on GitHub!</a></li>
+	      		<li><a href='http://alexgorbatchev.com/wiki/SyntaxHighlighter'>SyntaxHighlighter</a> 
+	      			and <a href='http://marijn.haverbeke.nl/codemirror/'>CodeMirror</a> for color!</li>
           </ul>
           <c:if test='${!debug}'>
 					<div>
@@ -85,7 +87,9 @@
 	      </div>      
       </div>
       
-      <div id='footer'>&copy; 2010 Thom Nichols</div>
+      <div id='footer'>&copy; 2010 Thom Nichols
+      	<a href='http://validator.w3.org/check?uri=${s:escURL(baseURL)}'>W3C</a>
+      </div>
       
       <div id='shareDialog'>
  		  	<div class="hd">Share This Script!</div>
@@ -131,7 +135,7 @@
       <script type="text/javascript" src="${contextPath}/static/js/ojay/ojay.min.js"></script>
 			<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
       <script type="text/javascript" src="${contextPath}/static/codemirror/codemirror.min.js"></script>
-      <script type="text/javascript" src="${contextPath}/static/js/app.min.js"></script>
+      <script type="text/javascript" src="${contextPath}/static/js/app.console.min.js"></script>
 			</c:otherwise>
       </c:choose>
     </body>
