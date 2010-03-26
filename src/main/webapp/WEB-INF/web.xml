@@ -20,20 +20,8 @@
 	    <param-value>${debug}</param-value>
 	  </init-param>
 	  <init-param>
-	    <param-name>yui_version</param-name>
-	    <param-value>${yui_version}</param-value>
-	  </init-param>
-	  <init-param>
 	    <param-name>baseURL</param-name>
 	    <param-value>${project.url}</param-value>
-	  </init-param>
-	  <init-param>
-	    <param-name>recaptchaPublicKey</param-name>
-	    <param-value>${recaptchaPublicKey}</param-value>
-	  </init-param>
-	  <init-param>
-	    <param-name>recaptchaPrivateKey</param-name>
-	    <param-value>${recaptchaPrivateKey}</param-value>
 	  </init-param>
 	  <load-on-startup>0</load-on-startup>
 	</servlet>
@@ -110,6 +98,19 @@
     <servlet-name>ping</servlet-name>
     <url-pattern>/tasks/ping</url-pattern>
 	</servlet-mapping>
+	
+  <context-param>
+    <param-name>yui_version</param-name>
+    <param-value>${yui_version}</param-value>
+  </context-param>
+  <context-param>
+    <param-name>recaptchaPublicKey</param-name>
+    <param-value>${recaptchaPublicKey}</param-value>
+  </context-param>
+  <context-param>
+    <param-name>recaptchaPrivateKey</param-name>
+    <param-value>${recaptchaPrivateKey}</param-value>
+  </context-param>
 	
 	<jsp-config>
 		<jsp-property-group>

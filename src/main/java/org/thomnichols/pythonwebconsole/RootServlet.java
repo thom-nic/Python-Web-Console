@@ -36,16 +36,8 @@ public class RootServlet extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		Enumeration<String> params = super.getInitParameterNames();
-		while ( params.hasMoreElements() ) {
-			String param = params.nextElement();
-			String value = super.getInitParameter( param );
-			if ( "true".equalsIgnoreCase( value ) )
-				super.getServletContext().setAttribute( param, true );
-			else if ( "false".equalsIgnoreCase( value ) )
-				super.getServletContext().setAttribute( param, false );
-			else super.getServletContext().setAttribute( param, value );
-		}
+		this.debug = Boolean.parseBoolean( super.getInitParameter( "debug" ) );
+		super.getServletContext().setAttribute( "debug", debug );
 		this.baseURL = super.getInitParameter( "baseURL" ) + 
 			getServletContext().getContextPath(); 
 		super.getServletContext().setAttribute( "baseURL", baseURL );
