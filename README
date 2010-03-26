@@ -15,11 +15,7 @@ Instructions:
 
 TODO
  * Atom comment feed
- * Gravatar for comments?
- * Minify CSS and JS using Samaxes Maven plugin
- * comment permalinks
  * Admin delete feature for scripts and comments
- * Google & Bing sitemap ping when new script is posted (as async job)
  * Syntax hilighting for editor
  * Login for editing/deleting/modifying published scripts
  * Twitter & Facebook 'share' buttons
