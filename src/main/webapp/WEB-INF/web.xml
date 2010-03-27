@@ -61,6 +61,10 @@
   	<servlet-name>ping</servlet-name>
   	<servlet-class>org.thomnichols.pythonwebconsole.SitemapPingServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>atomComments</servlet-name>
+  	<servlet-class>org.thomnichols.pythonwebconsole.AtomCommentServlet</servlet-class>
+  </servlet>
   
 	<servlet-mapping>
     <servlet-name>root</servlet-name>
@@ -69,6 +73,10 @@
 	<servlet-mapping>
     <servlet-name>console</servlet-name>
     <url-pattern>/console/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>atomComments</servlet-name>
+    <url-pattern>/script/atom.xml</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
     <servlet-name>script</servlet-name>
