@@ -45,4 +45,7 @@ public class Comment {
     public String getTitle() { return this.title; }
     public String getPermalink() { return this.permalink; }
     public String getScriptID() { return this.scriptID; }
+    public String getCreatedRFC() {
+    	return Util.RFC_DATE_FORMAT.format( this.created );
+    }
 }

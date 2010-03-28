@@ -39,6 +39,8 @@
 		     	</div>
 
 					<div id='comments'>
+						<a class='feed' title='Atom Feed for comments on this script'
+							href="${contextPath}/script/atom.xml?script=${s:escURL(script.permalink)}">&nbsp;</a>
 						<h2>Comments</h2>
 						<c:forEach var='comment' items='${comments}'>
 						<div class='comment'>
@@ -82,7 +84,6 @@
 			<div id='commentDialog' class='hidden'>
 				<div class="hd">Add a Comment!</div>
     		<div class="bd">
-    			<!-- TODO email for gravatar -->
     			<form id='commentForm' action='${contextPath}/comment/' method='post'>
 	      		<div class='row'>
 		      		<label for='author'>Your name:</label>
