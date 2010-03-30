@@ -6,10 +6,6 @@ import java.net.URLClassLoader;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
-import org.python.core.Py;
 import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 import org.slf4j.Logger;
@@ -31,7 +27,8 @@ public class ConsoleService {
 			"com.google", "org.datanucleus", 
 			"org.springframework" };
 	
-	static final ApiProxy.Delegate PROXY_DELEGATE = new ApiProxy.Delegate<Environment>() {
+	static final ApiProxy.Delegate<Environment> PROXY_DELEGATE = 
+			new ApiProxy.Delegate<Environment>() {
 		@Override
 		public void log( Environment arg0, LogRecord arg1 ) {
 			// TODO could redirect logging here if desired.
@@ -51,13 +48,15 @@ public class ConsoleService {
 	};
 	
 	static { 
-		Properties pre = new Properties();
-		//pre.setProperty( PySystemState.PYTHON_CONSOLE_ENCODING, null );
-		System.getProperties().remove("file.encoding");
-		/*PyConsoleClassLoader classloader = new PyConsoleClassLoader( 
+		System.getProperties().remove( "file.encoding" );
+		Properties system = (Properties)System.getProperties().clone();
+//		system.remove( "file.encoding" );
+		Properties post = new Properties();
+		post.setProperty( "python.path", libZipLocation );
+/*		PyConsoleClassLoader classloader = new PyConsoleClassLoader( 
 				new URL[0], Thread.currentThread().getContextClassLoader() );
-		PySystemState.initialize(pre,null,new String[]{""}, classloader ); 
-*/	}
+*/		PythonInterpreter.initialize( system, post, new String[0] ); 
+	}
 	
 	/**
 	 * Evaluate the python source and return the output.
@@ -79,8 +78,9 @@ public class ConsoleService {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			interpreter.setOut( out );
 			interpreter.setErr( out );
-			interpreter.exec( "import sys\nsys.path.insert(0, '" + 
-					libZipLocation + "')\n" + source );
+			interpreter.exec( source );
+//			interpreter.exec( "import sys\nsys.path.insert(0, '" + 
+//					libZipLocation + "')\n" + source );
 //			log.debug( "Output: {}", out );
 			return out.toString();
 		}

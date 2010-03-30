@@ -285,54 +285,7 @@
   
   <profiles>
   	<profile>
-  		<id>minify-syntax</id>
-  		<build>
-  			<plugins>
-		      <plugin>
-		        <groupId>com.samaxes.maven</groupId>
-		        <artifactId>maven-minify-plugin</artifactId>
-		        <version>1.1</version>
-		        <configuration>
-		          <cssDir>static/hosted/syntax</cssDir>
-		          <jsDir>static/hosted/syntax</jsDir>
-		          <cssFiles>
-		            <param>shCore.css</param>
-		            <param>shThemeFadeToGrey.css</param>
-		          </cssFiles>
-		          <jsFiles>
-		            <param>shCore.js</param>
-		            <param>shBrushPython.js</param>
-		          </jsFiles>
-		          <cssFinalFile>sh.css</cssFinalFile>
-		          <jsFinalFile>sh.js</jsFinalFile>
-		        </configuration>
-		      </plugin>
-  			</plugins>
-  		</build>
-  	</profile>
-  	<profile>
-  		<id>minify-ojay</id>
-  		<build>
-  			<plugins>
-		      <plugin>
-		        <groupId>com.samaxes.maven</groupId>
-		        <artifactId>maven-minify-plugin</artifactId>
-		        <version>1.1</version>
-		        <configuration>
-		          <jsDir>static/js/ojay</jsDir>
-		          <jsFiles>
-		            <param>js-class.js</param>
-		            <param>core.js</param>
-		            <param>pkg/forms.js</param>
-		          </jsFiles>
-		          <jsFinalFile>ojay.js</jsFinalFile>
-		        </configuration>
-		      </plugin>
-  			</plugins>
-  		</build>
-  	</profile>
-  	<profile>
-  		<id>minify-codemirror</id>
+  		<id>minify-all-external</id>
   		<build>
   			<plugins>
 		      <plugin>
@@ -340,10 +293,43 @@
 		        <artifactId>maven-minify-plugin</artifactId>
 		        <version>1.1</version>
 		        <executions>
-          		<execution>
-		        		<id>minify-main</id>
-								<phase>process-resources</phase>
+		        	<execution>
+		        		<id>minify-syntax</id>
 		        		<goals><goal>minify</goal></goals>
+		        		<phase>package</phase>
+	        			<configuration>
+				          <cssDir>static/hosted/syntax</cssDir>
+				          <jsDir>static/hosted/syntax</jsDir>
+				          <cssFiles>
+				            <param>shCore.css</param>
+				            <param>shThemeFadeToGrey.css</param>
+				          </cssFiles>
+				          <jsFiles>
+				            <param>shCore.js</param>
+				            <param>shBrushPython.js</param>
+				          </jsFiles>
+				          <cssFinalFile>sh.css</cssFinalFile>
+				          <jsFinalFile>sh.js</jsFinalFile>
+		        		</configuration>
+		        	</execution>
+		        	<execution>
+		        		<id>minify-ojay</id>
+		        		<goals><goal>minify</goal></goals>
+		        		<phase>package</phase>
+		        		<configuration>
+				          <jsDir>static/js/ojay</jsDir>
+				          <jsFiles>
+				            <param>js-class.js</param>
+				            <param>core.js</param>
+				            <param>pkg/forms.js</param>
+				          </jsFiles>
+				          <jsFinalFile>ojay.js</jsFinalFile>
+		        		</configuration>
+		        	</execution>
+          		<execution>
+		        		<id>minify-codemirror-main</id>
+		        		<goals><goal>minify</goal></goals>
+		        		<phase>package</phase>
 				        <configuration>
 				          <jsDir>static/codemirror</jsDir>
 				          <jsFiles>
@@ -353,9 +339,9 @@
 				        </configuration>
 			        </execution>
           		<execution>
-		        		<id>minify-bundle</id>
-								<phase>process-resources</phase>
+		        		<id>minify-codemirror-bundle</id>
 		        		<goals><goal>minify</goal></goals>
+		        		<phase>package</phase>
 				        <configuration>
 				          <jsDir>static/codemirror</jsDir>
 				          <jsFiles>
@@ -370,9 +356,9 @@
 				        </configuration>
 			        </execution>
           		<execution>
-		        		<id>minify-python</id>
-								<phase>process-resources</phase>
+		        		<id>minify-codemirror-python</id>
 		        		<goals><goal>minify</goal></goals>
+		        		<phase>package</phase>
 				        <configuration>
 				          <jsDir>static/codemirror</jsDir>
 				          <cssDir>static/codemirror</cssDir>
