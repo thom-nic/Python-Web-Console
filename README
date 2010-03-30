@@ -6,12 +6,13 @@ CPython cannot be safely sandboxed.
 Instructions:
 
  ./download-static-files.sh  # download external files from other projects 
- mvn minify:minify -Pminify-syntax    # minify syntaxhighlighter sources
- mvn minify:minify -Pminify-ojay      # minify ojay sources
  
  mvn gae:unpack              # download the appengine SDK
  mvn compile gae:run         # run a development server
 
+To Deploy:
+ mvn package -Pminify-all-external    # minify third-party resources
+ mvn gae:deploy -Ddebug=false
 
 TODO
  * Atom comment feed
