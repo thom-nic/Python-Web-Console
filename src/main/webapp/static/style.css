@@ -128,7 +128,7 @@ a img { border: none }
 
 #recentScripts { width: 500px }
 
-#tagCloud, #otherLinks { margin-left: 10px }
+#tagCloud, #otherLinks, #share { margin-left: 10px }
 #tagCloud span { white-space: nowrap; }
 
 #shareDialog { width: 350px }
