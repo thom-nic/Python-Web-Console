@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.thomnichols.pythonwebconsole.model.Comment;
 import org.thomnichols.pythonwebconsole.model.Script;
 import org.thomnichols.pythonwebconsole.model.Tag;
 
@@ -27,6 +26,8 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.labs.taskqueue.Queue;
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions.Method;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /**
  * This servlet handles sharing and retrieving saved scripts. 
@@ -53,17 +54,20 @@ public class ScriptServlet extends HttpServlet {
 			throws ServletException, IOException {
 		PersistenceManager pm = pmf.getPersistenceManager();
         try {
-        	// get the permalink as the last part of the path
-        	String url = req.getRequestURI();
-        	String permalink = url.substring( url.lastIndexOf( "/" )+1, url.length() );
-        	if ( permalink == null || permalink.length() < 1 ) {
-        		resp.sendError( 400, "Hrm, something is missing here." );
-        		return;
-        	}
+        	String permalink = getPermalink( req );
     		// lookup script based on script id/ permalink
-        	req.setAttribute( "script", pm.getObjectById( Script.class, permalink  ) );
-        	req.setAttribute( "comments", getComments( pm, permalink ) );
+        	Script script = pm.getObjectById( Script.class, permalink );
+        	req.setAttribute( "script", script );
+        	req.setAttribute( "comments", script.getComments() );
+        	
+        	UserService userSvc = UserServiceFactory.getUserService();
+        	if ( userSvc.isUserLoggedIn() && userSvc.isUserAdmin() )
+        		req.setAttribute( "admin", true );
+        	
     		req.getRequestDispatcher( "/script.jsp" ).forward( req, resp );
+        }
+        catch ( PermalinkMissingException ex ) {
+    		resp.sendError( 400, "Hrm, something is missing here." );
         }
         catch ( JDOObjectNotFoundException ex ) {
         	resp.sendError( 404, "Say wha?" );
@@ -74,6 +78,12 @@ public class ScriptServlet extends HttpServlet {
 	@Override
 	protected void doPost( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
+		
+		if ( "DELETE".equals( req.getParameter( "__method" ) ) ) {
+			this.doDelete( req, resp );
+			return;
+		}
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
         try {
@@ -88,8 +98,7 @@ public class ScriptServlet extends HttpServlet {
         	
         	Script script = new Script( author, source, title, tags );
         	tx.begin();
-        	Query query = pm.newQuery( Script.class, "permalink == p");
-        	query.declareParameters( "String p" );
+        	Query query = pm.newQuery( Script.class, "permalink == :p");
         	// handle conflicts if permalink already exists
         	while ( ((List<?>)query.execute( script.getPermalink() )).size() > 0 )
         		script.generateNewPermalink();
@@ -137,6 +146,41 @@ public class ScriptServlet extends HttpServlet {
         }
 	}
 	
+	@Override
+	protected void doDelete( HttpServletRequest req, HttpServletResponse resp )
+			throws ServletException, IOException {
+		UserService userSvc = UserServiceFactory.getUserService();
+		if ( ! userSvc.isUserLoggedIn() || ! userSvc.isUserAdmin() ) {
+			resp.sendError( 401, "No way!" );
+			return; /* TODO I don't think it's possible to set a security 
+					filter for a single action in web.xml */ 
+		}
+		PersistenceManager pm = this.pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			String permalink = getPermalink( req );
+			
+			tx.begin();
+			Script s = pm.getObjectById( Script.class, permalink );
+			pm.deletePersistentAll( s.getComments() );
+			pm.deletePersistent( s );
+			tx.commit();
+		}
+		catch ( PermalinkMissingException ex ) {
+    		resp.sendError( 400, "Hrm, something is missing here." );			
+		}
+		catch ( JDOObjectNotFoundException ex ) {
+        	resp.sendError( 404, "Say wha?" );			
+		}
+		finally {
+			if ( tx.isActive() ) {
+        		log.warn( "Rolling back tx!" );
+        		tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
 	/**
 	 * Send sitemap ping for Google and Bing.  These tasks fire asynchronously
 	 * so if there is a delayed response from one of these services, it does not
@@ -150,13 +194,13 @@ public class ScriptServlet extends HttpServlet {
 		queue.add( DatastoreServiceFactory.getDatastoreService().getCurrentTransaction(), 
 				url("/tasks/ping").method( Method.POST ).param( "engine", "bing" ) );
 	}
-
-	// TODO memcache!
-	private List<Comment> getComments( PersistenceManager pm, String permalink ) {
-    	Query query = pm.newQuery( Comment.class );
-    	query.setFilter( "scriptID==:s" );
-    	query.setOrdering( "created asc" );
-    	query.setRange( 0, 100 );
-		return (List<Comment>)query.execute(permalink);
+	
+	protected String getPermalink( HttpServletRequest req ) throws PermalinkMissingException {
+		// get the permalink as the last part of the path
+		String url = req.getRequestURI();
+    	String permalink = url.substring( url.lastIndexOf( "/" )+1, url.length() );
+    	if ( permalink == null || permalink.length() < 1 )
+    		throw new PermalinkMissingException();
+    	return permalink;
 	}
 }

@@ -19,6 +19,7 @@ import org.thomnichols.pythonwebconsole.model.Comment;
 import org.thomnichols.pythonwebconsole.model.Script;
 
 public class CommentServlet extends HttpServlet {
+	private static final long serialVersionUID = -7795493965633459235L;
 	final Logger log = LoggerFactory.getLogger( getClass() );
 
 	private PersistenceManagerFactory pmf;
@@ -50,9 +51,9 @@ public class CommentServlet extends HttpServlet {
 			String author = req.getParameter( "author" );
 			String email = req.getParameter( "email" );
 			
-			pm.getObjectById( Script.class, scriptID ); // verify script exists.
+			Script s = pm.getObjectById( Script.class, scriptID ); // verify script exists.
 			
-			Comment comment = new Comment( scriptID, author, email, title, commentText );
+			Comment comment = new Comment( s, author, email, title, commentText );
 			pm.makePersistent( comment );
 			log.debug( "Saved comment from: " + comment.getAuthor() );
 			// TODO how to represent this in the response?

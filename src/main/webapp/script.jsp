@@ -77,7 +77,11 @@
 		     		</c:forEach>
 		     	</div>
 		     	
-		     	<div id='share'><
+		     	<div id='share'>
+		     		<div class='admin'><
+		     			c:if test='${admin}'>
+							<a href='#' id='deleteLink' title='Delete this post'>Delete</a></c:if>
+						</div><
 		     		c:set var='fullURL' value='${baseURL}/script/${script.permalink}' scope='request'/><
 		     		c:set var='tweet' value='Python Web Console: ${script.title} ${fullURL}' scope='request'/>
 		     		<a href='http://twitter.com/home?source=pythonwebconsole.thomnichols.org&status=${s:escURL(tweet)}'
