@@ -89,6 +89,15 @@
       
       <div id='footer'>&copy; 2010 Thom Nichols
       	<a href='http://validator.w3.org/check?uri=${s:escURL(baseURL)}'>W3C</a>
+      	<c:choose>
+         	<c:when test='${logoutURL != null}'>
+     			<a href='${logoutURL}'>Logout</a>
+      		</c:when>
+      		<c:otherwise>
+      		<a href='${loginURL}'>Login</a>
+      		</c:otherwise>
+      		</c:choose>
+      	
       </div>
       
       <div id='shareDialog'>

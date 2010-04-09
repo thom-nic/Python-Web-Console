@@ -76,6 +76,24 @@
 		     		<a href='${contextPath}/tag/${tag}'>${s:esc(tag)}</a> &nbsp;
 		     		</c:forEach>
 		     	</div>
+		     	
+		     	<div id='share'>
+		     		<div class='admin'><
+		     			c:if test='${admin}'>
+							<a href='#' id='deleteLink' title='Delete this post'>Delete</a></c:if>
+						</div><
+		     		c:set var='fullURL' value='${baseURL}/script/${script.permalink}' scope='request'/><
+		     		c:set var='tweet' value='Python Web Console: ${script.title} ${fullURL}' scope='request'/>
+		     		<a href='http://twitter.com/home?source=pythonwebconsole.thomnichols.org&status=${s:escURL(tweet)}'
+		     				title='Share on Twitter' target="_new">
+		     			<img src='${contextPath}/static/img/tw_share_16.png' alt='Share on Twitter'/></a>
+		     		<a href='http://www.google.com/reader/link?srcURL=http://pythonwebconsole.thomnichols.org&url=${s:escURL(fullURL)}&title=Python%20Web%20Console:%20${s:escURL(script.title)}' 
+		     				title='Share on Google Buzz' target="_new">
+		     			<img src='${contextPath}/static/img/buzz_share_16.png' alt='Share on Google Buzz'/></a>
+		     		<a href='http://www.facebook.com/sharer.php?u=${s:escURL(fullURL)}&t=Python%20Web%20Console:%20${s:escURL(script.title)}'
+		     				title='Share on Facebook' target="_new">
+		     			<img src='${contextPath}/static/img/fb_share_16.png' alt='Share on Facebook'/></a>
+		     	</div>
 	     	</div>
 	
 	      <div id='footer'>&copy; 2010 Thom Nichols</div>

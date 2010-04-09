@@ -4,7 +4,7 @@
 app.failureResponseHandler = function(resp) {
 	  var msg = resp.statusText ? resp.statusText : 
 	    resp.status ? resp.status : "Unknown error: " + o;
-	  alert( "Error saving your script!\n" + msg );
+	  alert( "Error submitting your request!\n" + msg );
 		$$('#header .busy').hide();
 	};
 
@@ -86,6 +86,20 @@ app.reportDialog.validate = function () {
 	  return true;
 	};
 	
+app.deleteHandler = function(link,evt) {
+		evt.stopDefault();
+		if ( ! confirm("Are you sure you want to delete this post??" ) ) return;
+		$$('#header .busy').show();
+		console.debug( "link", link );
+		YAHOO.util.Connect.asyncRequest( "DELETE", link.node.href, { 
+			success: function( resp ) {
+				alert( "This post has been deleted" );
+				window.location.pathname = "/";
+			},
+			failure: app.failureResponseHandler
+		});
+	}
+	
 Ojay.onDOMReady( function() {
 	var clickHandler = function(dialog,btn,evt) {
 		dialog.show();
@@ -96,6 +110,8 @@ Ojay.onDOMReady( function() {
 	app.reportDialog.render();
 	$$('#reportLink').on('click',clickHandler.partial(app.reportDialog));
 	$$('#commentDialog, #reportDialog').removeClass('hidden');
+	var deleteLink = $$('#deleteLink');
+	if ( deleteLink.length ) deleteLink.on( 'click', app.deleteHandler );
 
 	//SyntaxHighlighter.defaults['light'] = true;
   SyntaxHighlighter.defaults['wrap-lines'] = false;

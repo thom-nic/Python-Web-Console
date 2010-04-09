@@ -23,6 +23,9 @@ import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Script;
 import org.thomnichols.pythonwebconsole.model.Tag;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 /**
  * @author tnichols
  *
@@ -65,7 +68,16 @@ public class RootServlet extends HttpServlet {
         try {
         	req.setAttribute("recentScripts", getRecentScripts(pm));
         	req.setAttribute("tagCloud", getTagCloud(pm));
-			super.getServletContext().
+        	
+        	UserService userSvc= UserServiceFactory.getUserService();
+        	if ( userSvc.isUserLoggedIn() ) 
+        		req.setAttribute( "logoutURL", userSvc.createLogoutURL( 
+        						req.getRequestURI() ) );
+        	else
+        		req.setAttribute( "loginURL", userSvc.createLoginURL( 
+        						req.getRequestURI() ) );
+
+        	super.getServletContext().
 				getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         } finally { pm.close(); }
 	}

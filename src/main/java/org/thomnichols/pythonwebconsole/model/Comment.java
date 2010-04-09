@@ -9,14 +9,15 @@ import javax.jdo.annotations.PrimaryKey;
 
 import org.thomnichols.pythonwebconsole.Util;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 
 
 @PersistenceCapable
 public class Comment {
 
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	@PrimaryKey private Long id;
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @PrimaryKey private Key key;
 	@Persistent private String permalink = "";
 	@Persistent private String author;
 	@Persistent private String authorEmail;
@@ -24,10 +25,10 @@ public class Comment {
 	@Persistent private Date created = new Date();
 	@Persistent private String title;
 	@Persistent private Text text;
-	@Persistent private String scriptID;
+    @Persistent private Script script;
 	
-	public Comment(String scriptID, String author, String email, String title, String text ) {
-		this.scriptID = scriptID;
+	public Comment(Script parent, String author, String email, String title, String text ) {
+		this.script = parent;
 		this.author = author == null || "".equals( author.trim() ) ? 
 				"Anonymous" : author;
 		this.authorEmail = email;
@@ -44,7 +45,7 @@ public class Comment {
     public Date getCreated() { return this.created; }
     public String getTitle() { return this.title; }
     public String getPermalink() { return this.permalink; }
-    public String getScriptID() { return this.scriptID; }
+    public Script getScript() { return this.script; }
     public String getCreatedRFC() {
     	return Util.RFC_DATE_FORMAT.format( this.created );
     }

@@ -132,7 +132,7 @@ a img { border: none }
 
 #recentScripts { width: 500px }
 
-#tagCloud, #otherLinks { margin-left: 10px }
+#tagCloud, #otherLinks, #share { margin-left: 10px }
 #tagCloud span { white-space: nowrap; }
 
 #shareDialog { width: 350px }
@@ -140,6 +140,8 @@ a img { border: none }
 	float: right; 
 	margin: 0 0 0 20px;
 }
+
+#share .admin { float: right; font-size: 90% }
 
 #source pre {
   background-color:#222;
