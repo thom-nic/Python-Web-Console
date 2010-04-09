@@ -137,6 +137,8 @@ a img { border: none }
 	margin: 0 0 0 20px;
 }
 
+#share .admin { float: right; font-size: 90% }
+
 #source pre {
   background-color:#222;
   color:#5F5;
