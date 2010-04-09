@@ -20,3 +20,12 @@ TODO
  * Syntax hilighting for editor
  * Login for editing/deleting/modifying published scripts
  * Twitter & Facebook 'share' buttons
+ 
+Credits:
+ 
+ Static code highlighting from Alex Gorbechev
+ 
+ Live code highlighting thanks to CodeMirror
+ 
+ Social network 'share' icons from chethstudios.net and
+ Benjamin Reid from psd.tutsplus.com
