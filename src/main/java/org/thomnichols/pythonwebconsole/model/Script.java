@@ -1,10 +1,10 @@
 package org.thomnichols.pythonwebconsole.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Pattern;
+import java.util.List;
 
+import javax.jdo.annotations.Extension;
+import javax.jdo.annotations.Order;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -21,6 +21,9 @@ public class Script {
     @Persistent private Date created = new Date();
     @Persistent private String[] tags;
     @Persistent private String title;
+    @Order(extensions = @Extension(vendorName="datanucleus", 
+    		key="list-ordering", value="created asc"))
+    @Persistent(mappedBy = "script") private List<Comment> comments;
     
     //TODO this seems to be persisted after it's generated
     private transient String rfcFormatDate = null;
@@ -43,6 +46,7 @@ public class Script {
     public Date getCreated() { return this.created; }
     public String getTitle() { return this.title; }
     public String[] getTags() { return this.tags; }
+    public List<Comment> getComments() { return this.comments; }
     public String getPermalink() { return this.permalink; }
     public String getCreatedRFC() {
     	if ( this.rfcFormatDate == null ) {
