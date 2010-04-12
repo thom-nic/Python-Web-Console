@@ -13,7 +13,7 @@ file="yui_$yui_version.zip"
 
 wget "http://yuilibrary.com/downloads/yui2/$file"
 unzip $file "yui/build/*"
-libs=(assets yahoo-dom-event selector json element connection container button)
+libs=(assets yahoo-dom-event selector json element connection container button cookie)
 for lib in "${libs[@]}" ; do
 	mv yui/build/$lib $dest_base
 done
