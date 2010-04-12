@@ -22,6 +22,14 @@ app.handleCommentSubmit = function() {
 			}, 
 			failure: app.failureResponseHandler
 		}, postData );
+		
+		// remember the user data in JSON in a cookie:
+		var rememberData = {author: form.author.value, email: form.email.value};
+		var date = new Date();
+		date.setTime( date.getTime() + 2592000000 ); // 30 days
+		YAHOO.util.Cookie.set( "commentForm", 
+				YAHOO.lang.JSON.stringify(rememberData), 
+				{expires: date, path: "/"} );
 	};
 	
 app.commentDialog = new YAHOO.widget.Dialog( "commentDialog", {
@@ -47,6 +55,16 @@ app.commentDialog.validate = function () {
 	};
 	
 app.commentDialog.beforeShowEvent.subscribe( function(dlg,evt) {
+		// get JSON from cookie:
+		var data = YAHOO.util.Cookie.get( "commentForm" );
+		if ( data ) {
+			data = data.parseJSON();
+			console.debug( "got cookie", data );
+			var form = $( 'commentForm' );
+			form.author.value = data.author;
+			form.email.value = data.email;
+		}
+	
 	  if ( typeof( Recaptcha ) == 'undefined' ) return; // only loaded if not debug
 	  Recaptcha.create( $('recaptcha_pub_key').innerHTML, 
 	    'recaptcha_container', { theme: "white" } );

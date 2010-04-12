@@ -38,7 +38,6 @@ app.consoleKeyHandler = function(o,e) {
 		if ( kC == 9 && !e.shiftKey && !e.ctrlKey && !e.altKey ) {
 			var oS = o.scrollTop;
 			if ( o.setSelectionRange ) {
-				
 				var sS = o.selectionStart;
 				var sE = o.selectionEnd;
 				o.value = o.value.substring(0, sS) + tab + o.value.substr(sE);
@@ -81,6 +80,14 @@ app.handleShareSubmit = function() {
 	  		$$('#header .busy').hide();
 		  }
 		}, postData );
+		
+		// remember the user data in JSON in a cookie:
+		var rememberData = {author: form.author.value};
+		var date = new Date();
+		date.setTime( date.getTime() + 2592000000 ); // 30 days
+		YAHOO.util.Cookie.set( "shareForm", 
+				YAHOO.lang.JSON.stringify(rememberData), 
+				{expires: date, path: "/"} );
 	};
 	
 app.shareDialog = new YAHOO.widget.Dialog( "shareDialog", {
@@ -93,6 +100,15 @@ app.shareDialog = new YAHOO.widget.Dialog( "shareDialog", {
 	});
 
 app.shareDialog.beforeShowEvent.subscribe( function(dlg,evt) {
+		// get JSON from cookie:
+		var data = YAHOO.util.Cookie.get( "shareForm" );
+		if ( ! data ) data = YAHOO.util.Cookie.get( "commentForm" );
+		if ( data ) {
+			data = data.parseJSON();
+			var form = $('shareForm');
+			form.author.value = data.author;
+		}
+	
 	  if ( typeof( Recaptcha ) == 'undefined' ) return; // only loaded if not debug
 	  Recaptcha.create( $('recaptcha_pub_key').innerHTML, 
 	    'recaptcha_container', { theme: "white" } );
