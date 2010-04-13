@@ -57,6 +57,9 @@
 								<span class='title'>${s:esc(comment.title)}</span>
 							</div>
 							<div class='bd'>${s:toHTML(s:esc(comment.text))}</div>
+							<div class='fd'><
+		     			c:if test='${admin}'><a href='${contextPath}/comment?cid=${comment.key}'
+								class='deleteLink'>Delete</a></c:if></div>
 						</div>
 						</c:forEach>
 					</div>

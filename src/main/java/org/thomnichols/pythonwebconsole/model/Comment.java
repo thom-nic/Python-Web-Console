@@ -10,6 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 import org.thomnichols.pythonwebconsole.Util;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 
 
@@ -38,6 +39,7 @@ public class Comment {
 		this.permalink = Util.generatePermalinkTS( this.title );
 	}
 	
+	public String getKey() { return KeyFactory.keyToString( this.key ); }
     public String getAuthor() { return this.author; }
     public String getAuthorEmail() { return this.authorEmail; }
     public String getEmailHash() { return this.emailHash; }

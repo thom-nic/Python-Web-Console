@@ -195,6 +195,12 @@ a img { border: none }
 .comment .hd .sub { float: right; font-size:11px }
 .comment .hd .sub .author { font-weight: bold; margin-right: 8px }
 
+.comment .fd { text-align: right }
+.comment .fd a {
+  margin-left: 4px;
+  font-size: smaller
+}
+
 .bd .row {
   height:22px;
   margin:5px 0;  

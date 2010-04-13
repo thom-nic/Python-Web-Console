@@ -106,17 +106,31 @@ app.reportDialog.validate = function () {
 	
 app.deleteHandler = function(link,evt) {
 		evt.stopDefault();
-		if ( ! confirm("Are you sure you want to delete this post??" ) ) return;
+		if ( ! confirm("Are you sure you want to delete this script??" ) ) return;
 		$$('#header .busy').show();
 		console.debug( "link", link );
 		YAHOO.util.Connect.asyncRequest( "DELETE", link.node.href, { 
 			success: function( resp ) {
-				alert( "This post has been deleted" );
+				alert( "This script has been deleted" );
 				window.location.pathname = "/";
 			},
 			failure: app.failureResponseHandler
 		});
-	}
+	};
+	
+app.commentDeleteHandler = function(link,evt) {
+		evt.stopDefault();
+		if ( ! confirm("Are you sure you want to delete this comment??" ) ) return;
+		$$('#header .busy').show();
+		console.debug( "link", link );
+		YAHOO.util.Connect.asyncRequest( "DELETE", link.node.href, { 
+			success: function( resp ) {
+				alert( "Comment has been deleted" );
+				window.location.reload();
+			},
+			failure: app.failureResponseHandler
+		});
+	};
 	
 Ojay.onDOMReady( function() {
 	var clickHandler = function(dialog,btn,evt) {
@@ -130,6 +144,8 @@ Ojay.onDOMReady( function() {
 	$$('#commentDialog, #reportDialog').removeClass('hidden');
 	var deleteLink = $$('#deleteLink');
 	if ( deleteLink.length ) deleteLink.on( 'click', app.deleteHandler );
+	var commentDeleteLinks = $$('#comments .deleteLink');
+	if ( commentDeleteLinks ) commentDeleteLinks.on( 'click', app.commentDeleteHandler );
 
 	//SyntaxHighlighter.defaults['light'] = true;
   SyntaxHighlighter.defaults['wrap-lines'] = false;

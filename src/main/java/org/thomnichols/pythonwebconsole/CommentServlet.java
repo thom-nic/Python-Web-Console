@@ -13,10 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Comment;
 import org.thomnichols.pythonwebconsole.model.Script;
+
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 public class CommentServlet extends HttpServlet {
 	private static final long serialVersionUID = -7795493965633459235L;
@@ -61,12 +66,41 @@ public class CommentServlet extends HttpServlet {
 			resp.getWriter().append( "Okey dokey." );
 		}
         catch ( JDOObjectNotFoundException ex ) {
-        	resp.sendError( 400, "Invalid script ID" );
+        	resp.sendError( 404, "Invalid script ID" );
         }
 		catch ( ValidationException ex ) {
 			log.warn( "Validation failed", ex );
 			resp.sendError( 400, "Validation failed " + ex.getMessage() );
 		}
+		finally { pm.close(); }
+	}
+	
+	@Override
+	protected void doDelete( HttpServletRequest req, HttpServletResponse resp )
+			throws ServletException, IOException {
+
+		UserService userSvc = UserServiceFactory.getUserService();
+		if ( ! userSvc.isUserLoggedIn() || ! userSvc.isUserAdmin() ) {
+			resp.sendError( 401, "Uhm, no." );
+			return; 
+		}
+		
+		String commentID = req.getParameter( "cid" );
+		if ( StringUtils.isBlank( commentID ) ) {
+			resp.sendError( 400, "Missing comment ID" );
+			return;
+		}
+	
+		PersistenceManager pm = pmf.getPersistenceManager();
+		try {
+			Comment c = pm.getObjectById( Comment.class, 
+					KeyFactory.stringToKey( commentID ) );
+			pm.deletePersistent( c );
+		}
+        catch ( JDOObjectNotFoundException ex ) {
+        	log.warn( "Could not find comment with ID {} to delete", commentID );
+        	resp.sendError( 404, "Invalid comment ID" );
+        }
 		finally { pm.close(); }
 	}
 }
