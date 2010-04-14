@@ -41,8 +41,7 @@ public class CommentServlet extends HttpServlet {
 	@Override
 	protected void doPost( HttpServletRequest req, HttpServletResponse resp )
 			throws ServletException, IOException {
-		String captcha = req.getParameter( "junk" ); 
-		if ( captcha != null && ! captcha.trim().equals("") ) { // simple captcha
+		if ( StringUtils.isNotBlank( req.getParameter( "junk" ) ) ) { // simple captcha
 			resp.sendError( 400, "Boooo!!" );
 			return;
 		}

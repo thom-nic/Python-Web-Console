@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thomnichols.pythonwebconsole.model.Script;
@@ -199,7 +200,7 @@ public class ScriptServlet extends HttpServlet {
 		// get the permalink as the last part of the path
 		String url = req.getRequestURI();
     	String permalink = url.substring( url.lastIndexOf( "/" )+1, url.length() );
-    	if ( permalink == null || permalink.length() < 1 )
+    	if ( StringUtils.isBlank( permalink ) )
     		throw new PermalinkMissingException();
     	return permalink;
 	}
