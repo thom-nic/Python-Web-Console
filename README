@@ -15,11 +15,10 @@ To Deploy:
  mvn gae:deploy -Ddebug=false
 
 TODO
- * Atom comment feed
- * Admin delete feature for scripts and comments
- * Syntax hilighting for editor
  * Login for editing/deleting/modifying published scripts
- * Twitter & Facebook 'share' buttons
+ * Memcache compiled python scripts (PyCode)
+ * Enable URLfetch for script code? 
+ * Enable AJAX callbacks for 'input' functions? 
  
 Credits:
  
