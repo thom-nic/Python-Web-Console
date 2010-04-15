@@ -17,7 +17,7 @@ To Deploy:
 TODO
  * Login for editing/deleting/modifying published scripts
  * Memcache compiled python scripts (PyCode)
- * Enable URLfetch for user-defined code? 
+ * Enable URLfetch for script code? 
  * Enable AJAX callbacks for 'input' functions? 
  
 Credits:
