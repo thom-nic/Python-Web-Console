@@ -16,7 +16,9 @@ import org.python.util.PythonObjectInputStream;
 public class CodeCacheTest {
 	String newline = System.getProperty("line.separator");
 	
-	//@Test
+	@Test public void testDummy() {}
+	
+//	@Test
 	public void testSerializePyCode() throws Exception {
 		Properties props = new Properties();
 	    props.setProperty("python.path", "target/test-classes/Lib.zip");
@@ -24,7 +26,7 @@ public class CodeCacheTest {
 		PythonInterpreter interpreter = new PythonInterpreter( null, new PySystemState() );
 		
 		String src = IOUtils.toString( getClass().getResourceAsStream( "/testimports.py" ) );
-		PyCode code = null; //interpreter.compile( src );
+		PyCode code = interpreter.compile( src ); // Jython 2.5.1 only
 		
 		// Serialize the PyCode instance:
 		ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
