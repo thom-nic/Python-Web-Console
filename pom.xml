@@ -341,12 +341,12 @@
   </profiles>
   
   <pluginRepositories>
-		<pluginRepository>
-			<id>googlecode-releases</id>
-			<name>Google Code Maven repository of releases</name>
-			<url>http://maven-samaxes-repo.googlecode.com/svn/releases</url>
+    <pluginRepository>
+      <id>googlecode-releases</id>
+      <name>Google Code Maven repository of releases</name>
+      <url>http://maven-samaxes-repo.googlecode.com/svn/releases</url>
       <releases><updatePolicy>never</updatePolicy></releases>
-		</pluginRepository>
+    </pluginRepository>
     <pluginRepository>
       <id>maven-gae-plugin-repo</id>
       <name>maven-gae-plugin repository</name>
@@ -366,5 +366,5 @@
       <url>http://twdata-m2-repository.googlecode.com/svn/</url>
       <releases><updatePolicy>never</updatePolicy></releases>
     </pluginRepository>
-	</pluginRepositories>
+  </pluginRepositories>
 </project>
