@@ -280,11 +280,13 @@
       <id>maven-gae-plugin-repo</id>
       <name>maven-gae-plugin repository</name>
       <url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
     </repository>
     <repository>
-      <id>DataNucleus_Repos2</id>
+      <id>DN_M2_Repo</id>
       <name>DataNucleus Repository</name>
       <url>http://www.datanucleus.org/downloads/maven2</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
     </repository>
   </repositories>
   
@@ -343,15 +345,18 @@
 			<id>googlecode-releases</id>
 			<name>Google Code Maven repository of releases</name>
 			<url>http://maven-samaxes-repo.googlecode.com/svn/releases</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
 		</pluginRepository>
     <pluginRepository>
       <id>maven-gae-plugin-repo</id>
       <name>maven-gae-plugin repository</name>
       <url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
     </pluginRepository>
     <pluginRepository>
       <id>DataNucleus_2</id>
       <url>http://www.datanucleus.org/downloads/maven2/</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
     </pluginRepository>
     <!-- add '<pluginGroup>org.twdata.maven</pluginGroup>' 
          to settings.xml to enable cli:execute support.  -->
@@ -359,6 +364,7 @@
       <id>twdata-m2-repository</id>
       <name>twdata.org Maven 2 Repository</name>
       <url>http://twdata-m2-repository.googlecode.com/svn/</url>
+      <releases><updatePolicy>never</updatePolicy></releases>
     </pluginRepository>
 	</pluginRepositories>
 </project>
