@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SitemapPingServlet extends HttpServlet {
+	private static final long serialVersionUID = 4001828230975488683L;
 	private final Logger log = LoggerFactory.getLogger( getClass() );
 	private String sitemapURL;
 	

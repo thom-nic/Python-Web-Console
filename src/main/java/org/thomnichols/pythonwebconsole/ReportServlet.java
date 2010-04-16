@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ReportServlet extends HttpServlet {
-
+	private static final long serialVersionUID = 7919862307109350823L;
 	private String adminEmail;
 	
 	@Override
