@@ -11,10 +11,10 @@
   
   <!-- Use mvn release:perform to deploy to AppEngine -->
   <properties>
-    <gae.plugin.version>0.5.7</gae.plugin.version>
-    <gae.version>1.3.2</gae.version>
+    <gae.plugin.version>0.9.2</gae.plugin.version>
+    <gae.version>1.5.5</gae.version>
     <gae.application.version>test-3-codemirror</gae.application.version>
-    <jython.version>2.5.1</jython.version>
+    <jython.version>2.5.2</jython.version>
   	
   	<debug>true</debug>
   	<yui_version>2.8.0r4</yui_version>
@@ -174,7 +174,7 @@
         <dependencies>
         	<dependency>
       			<groupId>com.google.appengine</groupId>
-      			<artifactId>appengine-tools-api</artifactId>
+      			<artifactId>appengine-tools-sdk</artifactId>
       			<version>${gae.version}</version>
     			</dependency>
         </dependencies>
@@ -223,7 +223,7 @@
       <plugin>
         <groupId>com.samaxes.maven</groupId>
         <artifactId>maven-minify-plugin</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
         <executions>
         	<execution>
         		<id>css</id>
@@ -248,6 +248,52 @@
 		            <param>app.script.js</param>
 		          </jsFiles>
 		          <jsFinalFile>app.script.js</jsFinalFile>
+		        </configuration>
+        	</execution>
+        	<execution>
+        		<id>codemirror-main</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <jsDir>static/codemirror</jsDir>
+		          <jsFiles>
+		            <param>codemirror.js</param>
+		          </jsFiles>
+		          <jsFinalFile>codemirror.js</jsFinalFile>
+		        </configuration>
+        	</execution>
+        	<execution>
+        		<id>codemirror-py</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <jsDir>static/codemirror</jsDir>
+		          <jsFiles>
+		            <param>parsepython.js</param>
+		          </jsFiles>
+		          <jsFinalFile>parsepython.js</jsFinalFile>
+							<cssDir>static/codemirror</cssDir>
+		          <cssFiles>
+		            <param>pythoncolors.css</param>
+		          </cssFiles>
+		          <cssFinalFile>pythoncolors.css</cssFinalFile>
+		        </configuration>
+        	</execution>
+        	<execution>
+        		<id>codemirror-bundle</id>
+	        	<phase>package</phase>
+	        	<goals><goal>minify</goal></goals>
+		        <configuration>
+		          <jsDir>static/codemirror</jsDir>
+		          <jsFiles>
+		            <param>editor.js</param>
+		            <param>select.js</param>
+		            <param>stringstream.js</param>
+		            <param>tokenize.js</param>
+		            <param>undo.js</param>
+		            <param>util.js</param>
+		          </jsFiles>
+		          <jsFinalFile>bundle.js</jsFinalFile>
 		        </configuration>
         	</execution>
         	<execution>
