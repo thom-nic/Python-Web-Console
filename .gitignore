@@ -7,3 +7,4 @@ cachedir
 src/main/webapp/static/hosted/syntax
 src/main/webapp/static/hosted/yui
 src/main/webapp/static/js/ojay
+*.swp
