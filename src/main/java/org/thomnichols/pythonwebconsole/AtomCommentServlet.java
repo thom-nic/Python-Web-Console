@@ -29,15 +29,18 @@ public class AtomCommentServlet extends HttpServlet {
 		try {
 			String scriptID = Util.validateParam( req, "script" );
 			
+			Script script = pm.getObjectById( Script.class, scriptID  );
 			Query q = pm.newQuery( Comment.class );
-			q.setFilter( "scriptID == :s" );
+			q.setFilter( "script == :s" );
 			q.setOrdering( "created desc" );
 			q.setRange( 0,30 );
-			List<Comment> comments = (List<Comment>)q.execute( scriptID );
+			List<Comment> comments = (List<Comment>)q.execute( script );
 
-        	req.setAttribute( "script", pm.getObjectById( Script.class, scriptID  ) );
+			req.setAttribute( "script", script );
 			req.setAttribute( "scriptID", scriptID );
 			req.setAttribute( "comments", comments );
+			req.setAttribute( "updated", comments.size() > 0 ? 
+					comments.get(0).getCreatedRFC() : script.getCreatedRFC() );
 			req.getRequestDispatcher( "/WEB-INF/atom-comments.xml.jsp" ).forward( req, resp );
 		}
 		catch ( ValidationException ex ) {

@@ -5,7 +5,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title type="text">Python Web Console</title>
     <subtitle type="text">Comments for Script '${s:esc(script.title)}'</subtitle>
-    <updated>${comments[0].createdRFC}</updated>
+    <updated>${updated}</updated>
     <id>${baseURL}/</id>
     <link rel="alternate" type="text/html" hreflang="en" href="${baseURL}" />
     <link rel="self" type="application/atom+xml" href="${baseURL}/atom.xml" />
