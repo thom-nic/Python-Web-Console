@@ -3,6 +3,7 @@ package org.thomnichols.pythonwebconsole;
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
@@ -45,6 +46,12 @@ public class ConsoleService {
 				String arg2, byte[] arg3 ) throws ApiProxyException {
 			return null;
 		}
+
+		@Override public List<Thread> getRequestThreads(Environment arg0) {
+			return null;
+		}
+
+		@Override public void flushLogs(Environment arg0) {}
 	};
 	
 	static { 
